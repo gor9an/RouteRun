@@ -11,6 +11,8 @@
 		B02AB1DD2CD8DCF100F98888 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1DC2CD8DCF100F98888 /* ContentView.swift */; };
 		B02AB1DF2CD8DCF500F98888 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02AB1DE2CD8DCF500F98888 /* Assets.xcassets */; };
 		B02AB1E22CD8DCF500F98888 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */; };
+		B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */; };
+		B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1F02CD8E46D00F98888 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		B02AB1DC2CD8DCF100F98888 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B02AB1DE2CD8DCF500F98888 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		B02AB1F02CD8E46D00F98888 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +55,8 @@
 		B02AB1D92CD8DCF100F98888 /* RouteRun */ = {
 			isa = PBXGroup;
 			children = (
-				B02AB1DA2CD8DCF100F98888 /* RouteRunApp.swift */,
-				B02AB1DC2CD8DCF100F98888 /* ContentView.swift */,
+				B02AB1F32CD932F400F98888 /* Root */,
+				B02AB1E82CD8E2D400F98888 /* MapScreen */,
 				B02AB1DE2CD8DCF500F98888 /* Assets.xcassets */,
 				B02AB1E02CD8DCF500F98888 /* Preview Content */,
 			);
@@ -65,6 +69,48 @@
 				B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B02AB1E82CD8E2D400F98888 /* MapScreen */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1EA2CD8E2EB00F98888 /* Model */,
+				B02AB1E92CD8E2E500F98888 /* View */,
+				B02AB1EB2CD8E2F200F98888 /* ViewModel */,
+			);
+			path = MapScreen;
+			sourceTree = "<group>";
+		};
+		B02AB1E92CD8E2E500F98888 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1F02CD8E46D00F98888 /* MapView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B02AB1EA2CD8E2EB00F98888 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B02AB1EB2CD8E2F200F98888 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B02AB1F32CD932F400F98888 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1DA2CD8DCF100F98888 /* RouteRunApp.swift */,
+				B02AB1DC2CD8DCF100F98888 /* ContentView.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +184,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B02AB1DD2CD8DCF100F98888 /* ContentView.swift in Sources */,
+				B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */,
 				B02AB1DB2CD8DCF100F98888 /* RouteRunApp.swift in Sources */,
+				B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +323,7 @@
 				DEVELOPMENT_TEAM = ZA635WC7L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +353,7 @@
 				DEVELOPMENT_TEAM = ZA635WC7L2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
