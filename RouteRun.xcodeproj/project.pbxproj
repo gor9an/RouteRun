@@ -13,6 +13,13 @@
 		B02AB1E22CD8DCF500F98888 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */; };
 		B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */; };
 		B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1F02CD8E46D00F98888 /* MapView.swift */; };
+		B02AB1F62CDA384A00F98888 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1F52CDA384A00F98888 /* MapModel.swift */; };
+		B02AB1FB2CDA38BB00F98888 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */; };
+		B02AB1FD2CDA38C500F98888 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FC2CDA38C500F98888 /* ProfileView.swift */; };
+		B02AB1FF2CDA38D900F98888 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */; };
+		B02AB2052CDA3F3100F98888 /* RoutesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB2042CDA3F3100F98888 /* RoutesModel.swift */; };
+		B02AB2072CDA3F3D00F98888 /* RoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB2062CDA3F3D00F98888 /* RoutesView.swift */; };
+		B02AB2092CDA3F4900F98888 /* RoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB2082CDA3F4900F98888 /* RoutesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +30,13 @@
 		B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		B02AB1F02CD8E46D00F98888 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		B02AB1F52CDA384A00F98888 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
+		B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		B02AB1FC2CDA38C500F98888 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		B02AB2042CDA3F3100F98888 /* RoutesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesModel.swift; sourceTree = "<group>"; };
+		B02AB2062CDA3F3D00F98888 /* RoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesView.swift; sourceTree = "<group>"; };
+		B02AB2082CDA3F4900F98888 /* RoutesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				B02AB1F32CD932F400F98888 /* Root */,
-				B02AB1E82CD8E2D400F98888 /* MapScreen */,
+				B02AB20A2CDA3F5600F98888 /* Screens */,
 				B02AB1DE2CD8DCF500F98888 /* Assets.xcassets */,
 				B02AB1E02CD8DCF500F98888 /* Preview Content */,
 			);
@@ -71,14 +85,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		B02AB1E82CD8E2D400F98888 /* MapScreen */ = {
+		B02AB1E82CD8E2D400F98888 /* Map */ = {
 			isa = PBXGroup;
 			children = (
 				B02AB1EA2CD8E2EB00F98888 /* Model */,
 				B02AB1E92CD8E2E500F98888 /* View */,
 				B02AB1EB2CD8E2F200F98888 /* ViewModel */,
 			);
-			path = MapScreen;
+			path = Map;
 			sourceTree = "<group>";
 		};
 		B02AB1E92CD8E2E500F98888 /* View */ = {
@@ -92,6 +106,7 @@
 		B02AB1EA2CD8E2EB00F98888 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B02AB1F52CDA384A00F98888 /* MapModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -111,6 +126,84 @@
 				B02AB1DC2CD8DCF100F98888 /* ContentView.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		B02AB1F42CDA380900F98888 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1F72CDA388600F98888 /* Model */,
+				B02AB1F82CDA388D00F98888 /* View */,
+				B02AB1F92CDA389400F98888 /* ViewModel */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		B02AB1F72CDA388600F98888 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B02AB1F82CDA388D00F98888 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1FC2CDA38C500F98888 /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B02AB1F92CDA389400F98888 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B02AB2002CDA3E9100F98888 /* Routes */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB2032CDA3ED700F98888 /* Model */,
+				B02AB2022CDA3ECD00F98888 /* View */,
+				B02AB2012CDA3EC600F98888 /* ViewModel */,
+			);
+			path = Routes;
+			sourceTree = "<group>";
+		};
+		B02AB2012CDA3EC600F98888 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB2082CDA3F4900F98888 /* RoutesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B02AB2022CDA3ECD00F98888 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB2062CDA3F3D00F98888 /* RoutesView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B02AB2032CDA3ED700F98888 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB2042CDA3F3100F98888 /* RoutesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B02AB20A2CDA3F5600F98888 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				B02AB1E82CD8E2D400F98888 /* Map */,
+				B02AB2002CDA3E9100F98888 /* Routes */,
+				B02AB1F42CDA380900F98888 /* Profile */,
+			);
+			path = Screens;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,9 +276,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B02AB2052CDA3F3100F98888 /* RoutesModel.swift in Sources */,
+				B02AB1F62CDA384A00F98888 /* MapModel.swift in Sources */,
 				B02AB1DD2CD8DCF100F98888 /* ContentView.swift in Sources */,
 				B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */,
+				B02AB1FB2CDA38BB00F98888 /* ProfileModel.swift in Sources */,
 				B02AB1DB2CD8DCF100F98888 /* RouteRunApp.swift in Sources */,
+				B02AB2072CDA3F3D00F98888 /* RoutesView.swift in Sources */,
+				B02AB1FD2CDA38C500F98888 /* ProfileView.swift in Sources */,
+				B02AB2092CDA3F4900F98888 /* RoutesViewModel.swift in Sources */,
+				B02AB1FF2CDA38D900F98888 /* ProfileViewModel.swift in Sources */,
 				B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

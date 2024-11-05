@@ -14,11 +14,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("Карта", systemImage: "map")
                 }
-            RoundedRectangle(cornerRadius: 25)
+            RoutesView()
                 .tabItem {
                     Label("Маршруты", systemImage: "road.lanes.curved.right")
                 }
-            RoundedRectangle(cornerRadius: 25)
+            ProfileView()
                 .tabItem {
                     Label("Профиль", systemImage: "person.fill")
                 }
