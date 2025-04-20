@@ -8,5 +8,5 @@
 import Foundation
 
 struct MapModel: Codable {
-    var Routes: [RouteModel]
+    var Routes: [Route]
 }

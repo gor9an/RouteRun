@@ -14,7 +14,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("Карта", systemImage: "map")
                 }
-            RoutesView()
+            RoutesView(viewModel: RoutesViewModel())
                 .tabItem {
                     Label("Маршруты", systemImage: "road.lanes.curved.right")
                 }

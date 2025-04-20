@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct RouteModel: Codable {
-    let id: Int
-    let name: String
-    let distance: Double
-    let duration: Int
+struct RoutesModel {
+    func fetch() async throws -> [Route] {
+        return []
+    }
 }
