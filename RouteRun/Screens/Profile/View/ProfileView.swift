@@ -12,13 +12,16 @@ struct ProfileView: View {
         VStack {
             HStack {
                 //TODO: Changeable profile Image
-                Image(systemName: "person.circle.fill")
+                Image("profile image")
                     .resizable()
                     .frame(width: 100, height: 100)
+                    .clipShape(.circle)
 
-                Text("Nickname")
+                Text("gordddan")
                     .font(.system(size: 15, weight: .semibold))
                     .padding(.horizontal)
+
+                Spacer()
                 Spacer()
 
                 Button(
@@ -29,8 +32,22 @@ struct ProfileView: View {
                         Image(systemName: "bookmark.fill")
                             .resizable()
                             .frame(width: 35, height: 50)
-                            .tint(.red)
+                            .tint(.orange)
                     })
+
+                Spacer()
+
+                Button(
+                    action: {
+                        //TODO: - Logout action
+                    },
+                    label: {
+                        Image(systemName: "door.right.hand.open")
+                            .resizable()
+                            .frame(width: 35, height: 50)
+                            .tint(.red)
+                    }
+                )
             }
             .padding()
 
