@@ -28,6 +28,7 @@ final class MapViewModel: NSObject, ObservableObject {
     private func checkLocationAuthorization() {
         guard let locationManager else { return }
 
+        // FIXME: Junk code
         switch locationManager.authorizationStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
@@ -43,18 +44,20 @@ final class MapViewModel: NSObject, ObservableObject {
     }
 
     func startRecordingRoute() {
-        routePoints.removeAll() // Начинаем новый маршрут
+        //TODO: Add start recording logic
+        routePoints.removeAll()
         locationManager?.startUpdatingLocation()
     }
 
     func stopRecordingRoute() {
+        //TODO: Add stop recording logic
         locationManager?.stopUpdatingLocation()
-        // Сохраните маршрут или добавьте дальнейшую обработку данных
     }
 }
 
 extension MapViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //FIXME: Don't call method
         guard let location = locations.last else { return }
         routePoints.append(location.coordinate)
     }
