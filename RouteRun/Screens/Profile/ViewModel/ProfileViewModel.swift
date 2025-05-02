@@ -7,6 +7,10 @@
 
 import Foundation
 
-final class ProfileViewModel {
+@MainActor
+final class ProfileViewModel: ObservableObject {
 
+    func logout() throws {
+        try AuthenticationManager.shared.signOut()
+    }
 }

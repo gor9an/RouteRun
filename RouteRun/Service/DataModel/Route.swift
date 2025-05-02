@@ -7,7 +7,7 @@
 
 struct Route: Codable {
     let id: Int
-    let name: String
+    let title: String
     let distance: Double
     let duration: Int
 }

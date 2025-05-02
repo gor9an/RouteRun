@@ -9,6 +9,6 @@ import Foundation
 
 struct RoutesModel {
     func fetch() async throws -> [Route] {
-        return []
+        return [Route]()
     }
 }

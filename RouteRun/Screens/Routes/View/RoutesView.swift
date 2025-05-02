@@ -21,7 +21,7 @@ struct RoutesView: View {
         NavigationStack {
             VStack {
                 List {
-                    ForEach(routes.map { $0.name }, id: \.self) { route in
+                    ForEach(routes.map { $0.title }, id: \.self) { route in
                         //FIXME: Strange if
                         if route.lowercased().hasPrefix(searchedText.lowercased())
                             || route.lowercased().hasSuffix(searchedText.lowercased())
