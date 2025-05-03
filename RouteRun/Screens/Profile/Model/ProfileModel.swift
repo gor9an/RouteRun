@@ -7,6 +7,8 @@
 
 import Foundation
 
-struct ProfileModel {
-    
+struct ProfileModel: Codable {
+    let name: String
+    let avatar: URL
+    let favoriteRoutes: [Route]
 }

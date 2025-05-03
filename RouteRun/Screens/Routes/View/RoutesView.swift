@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct RoutesView: View {
-    let routes = [
-        "Дорога 1", "Дорога 2", "Путь 3", "Дорога 4", "Тропа 5",
-        "Путь 6", "Тропа 7", "Дорога 8", "Дорога 9", "Ручей 10"
-    ]
-
+    private var routes = [Route]()
+    private var viewModel: RoutesViewModel
     @State var searchedText: String = ""
+
+    init(viewModel: RoutesViewModel) {
+        self.viewModel = viewModel
+        self.routes = viewModel.routes
+    }
+
     var body: some View {
         NavigationStack {
             VStack {
                 List {
-                    ForEach(routes, id: \.self) { route in
+                    ForEach(routes.map { $0.title }, id: \.self) { route in
                         //FIXME: Strange if
                         if route.lowercased().hasPrefix(searchedText.lowercased())
                             || route.lowercased().hasSuffix(searchedText.lowercased())
@@ -32,8 +35,9 @@ struct RoutesView: View {
         .navigationTitle("Маршруты")
         .searchable(text: $searchedText, prompt: "Введие ключевые слова")
     }
+
 }
 
 #Preview {
-    RoutesView()
+    RoutesView(viewModel: RoutesViewModel())
 }

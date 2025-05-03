@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct MapModel {
-
+struct MapModel: Codable {
+    var Routes: [Route]
 }
