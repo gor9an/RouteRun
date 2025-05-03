@@ -9,6 +9,19 @@ import Foundation
 import FirebaseAuth
 import GoogleSignIn
 
+enum AuthError: Error {
+    case emailNotVerified
+}
+
+extension AuthError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .emailNotVerified:
+            return NSLocalizedString("Подтвердите Email.", comment: "Email не подтвержден")
+        }
+    }
+}
+
 final class AuthenticationManager {
     static let shared = AuthenticationManager()
     private init() { }
@@ -23,6 +36,46 @@ final class AuthenticationManager {
 
     func signOut() throws {
         try Auth.auth().signOut()
+    }
+}
+
+// MARK: - With Email
+extension AuthenticationManager {
+    @discardableResult
+    func createUser(email: String, password: String) async throws -> AuthDataModel {
+
+        let authData = try await Auth.auth().createUser(withEmail: email, password: password)
+        try await authData.user.sendEmailVerification()
+
+        return AuthDataModel(user: authData.user)
+    }
+
+    @discardableResult
+    func signIn(email: String, password: String) async throws -> AuthDataModel {
+        let authData = try await Auth.auth().signIn(withEmail: email, password: password)
+
+        do {
+            try isEmailVerified()
+        } catch {
+            try signOut()
+        }
+
+        return AuthDataModel(user: authData.user)
+    }
+
+    func resetPassword(with email: String) async throws {
+        try await Auth.auth().sendPasswordReset(withEmail: email)
+    }
+
+    @discardableResult
+    func isEmailVerified() throws -> Bool {
+        let isVerefied = Auth.auth().currentUser?.isEmailVerified ?? false
+
+        if !isVerefied {
+            throw AuthError.emailNotVerified
+        }
+
+        return true
     }
 }
 

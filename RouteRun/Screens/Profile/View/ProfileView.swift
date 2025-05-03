@@ -6,79 +6,100 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
     @State var showAlert = false
+
     var body: some View {
         VStack {
             HStack(spacing: 16) {
-                Image("profile image")
+                if let imageURL = viewModel.getImageURL() {
+                    KFImage(imageURL)
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .clipShape(.circle)
+                } else {
+                    PlaceholderImage()
+                }
+
+                DisplayName()
+
+                Spacer()
+
+                ExitButton()
+            }
+            .padding()
+
+            Spacer()
+        }
+    }
+
+    private func PlaceholderImage() -> some View {
+        Image(systemName: "person.circle.fill")
+            .resizable()
+            .frame(width: 100, height: 100)
+    }
+
+    private func DisplayName() -> some View {
+        Text(viewModel.getDisplayName())
+            .lineLimit(1)
+            .font(.headline)
+            .bold()
+    }
+
+    private func ExitButton() -> some View {
+        Button(
+            action: {
+                showAlert = true
+            },
+            label: {
+                Image(systemName: "door.right.hand.open")
                     .resizable()
-                    .frame(width: 100, height: 100)
-                    .clipShape(.circle)
+                    .frame(width: 35, height: 50)
+                    .padding()
+                    .tint(.red)
 
-                Spacer()
-                Spacer()
+            }
+        )
+        .alert(
+            isPresented: $showAlert
+        ) {
+            ExitAlert()
+        }
+    }
 
-                Button(
-                    action: {
-                        //TODO: - Favorites action
-                    },
-                    label: {
-                        Image(systemName: "bookmark.fill")
-                            .resizable()
-                            .frame(width: 35, height: 50)
-                            .padding()
-                            .tint(.orange)
-                    })
-
-                Button(
+    private func ExitAlert() -> Alert {
+            Alert(
+                title: Text(
+                    "Выход"
+                ),
+                message: Text(
+                    "Вы точно хотите выйти?"
+                ),
+                primaryButton: .default(
+                    Text(
+                        "Выйти"
+                    ),
                     action: {
                         do {
                             try viewModel.logout()
                             showSignInView = true
-                        } catch {
-                            showAlert = true
-                        }
-                    },
-                    label: {
-                        Image(systemName: "door.right.hand.open")
-                            .resizable()
-                            .frame(width: 35, height: 50)
-                            .padding()
-                            .tint(.red)
-
+                        } catch {}
+                        showAlert = false
+                    }
+                ),
+                secondaryButton: .cancel(
+                    Text(
+                        "Нет"
+                    ),
+                    action: {
+                        showAlert = false
                     }
                 )
-                .alert(
-                    isPresented: $showAlert
-                ) {
-                    Alert(
-                        title: Text(
-                            "Ошибка"
-                        ),
-                        message: Text(
-                            "Произошла ошибка при выходе"
-                        ),
-                        dismissButton: .cancel(
-                            Text(
-                                "Ок"
-                            ),
-                            action: {
-                                showAlert = false
-                            }
-                        )
-                    )
-                }
-            }
-            .padding()
-
-
-            Spacer()
-        }
-        .navigationTitle(Text("Профиль"))
+            )
     }
 }
 
@@ -88,3 +109,11 @@ struct ProfileView: View {
         ProfileView(showSignInView: $showSignInView)
     }
 }
+
+extension View {
+     public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
+         let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
+         return clipShape(roundedRect)
+              .overlay(roundedRect.strokeBorder(content, lineWidth: width))
+     }
+ }
