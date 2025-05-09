@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5C4753892DB5537000A9CDDB /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4753862DB5537000A9CDDB /* AuthenticationView.swift */; };
-		5C47538D2DB55BE700A9CDDB /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47538C2DB55BD400A9CDDB /* Route.swift */; };
+		5C6200FF2DCE26C4009D6FCA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C6200FE2DCE26C4009D6FCA /* FirebaseFirestore */; };
+		5C6201092DCE29CA009D6FCA /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6201082DCE29CA009D6FCA /* Route.swift */; };
+		5C6201142DCE3F0F009D6FCA /* Firestore+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6201132DCE3F0C009D6FCA /* Firestore+Extensions.swift */; };
+		5C838D9C2DCE88B900150C45 /* ScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C838D9B2DCE88AE00150C45 /* ScaleButtonStyle.swift */; };
+		5C838DA12DCE894C00150C45 /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C838DA02DCE894C00150C45 /* MapError.swift */; };
+		5C838DA32DCE895800150C45 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C838DA22DCE895800150C45 /* AuthError.swift */; };
 		5CC953C92DC50A6800474AD0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5CC953C82DC50A6800474AD0 /* FirebaseAnalytics */; };
 		5CC953CB2DC50A6800474AD0 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5CC953CA2DC50A6800474AD0 /* FirebaseAuth */; };
 		5CC953D42DC50F4B00474AD0 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC953D32DC50F4B00474AD0 /* AuthenticationManager.swift */; };
@@ -26,7 +31,6 @@
 		B02AB1E22CD8DCF500F98888 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */; };
 		B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */; };
 		B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1F02CD8E46D00F98888 /* MapView.swift */; };
-		B02AB1F62CDA384A00F98888 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1F52CDA384A00F98888 /* MapModel.swift */; };
 		B02AB1FB2CDA38BB00F98888 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */; };
 		B02AB1FD2CDA38C500F98888 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FC2CDA38C500F98888 /* ProfileView.swift */; };
 		B02AB1FF2CDA38D900F98888 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */; };
@@ -37,7 +41,11 @@
 
 /* Begin PBXFileReference section */
 		5C4753862DB5537000A9CDDB /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
-		5C47538C2DB55BD400A9CDDB /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		5C6201082DCE29CA009D6FCA /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		5C6201132DCE3F0C009D6FCA /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
+		5C838D9B2DCE88AE00150C45 /* ScaleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleButtonStyle.swift; sourceTree = "<group>"; };
+		5C838DA02DCE894C00150C45 /* MapError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapError.swift; sourceTree = "<group>"; };
+		5C838DA22DCE895800150C45 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		5CC953D32DC50F4B00474AD0 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		5CC953D52DC5104E00474AD0 /* AuthDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataModel.swift; sourceTree = "<group>"; };
 		5CC953DC2DC545D100474AD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -52,7 +60,6 @@
 		B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		B02AB1F02CD8E46D00F98888 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		B02AB1F52CDA384A00F98888 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModel.swift; sourceTree = "<group>"; };
 		B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		B02AB1FC2CDA38C500F98888 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -71,6 +78,7 @@
 				5CC953D92DC545C400474AD0 /* GoogleSignIn in Frameworks */,
 				5CC953DB2DC545C400474AD0 /* GoogleSignInSwift in Frameworks */,
 				5CC953F22DC62CDA00474AD0 /* Kingfisher in Frameworks */,
+				5C6200FF2DCE26C4009D6FCA /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				5CC953E42DC54AFB00474AD0 /* Utilities.swift */,
+				5C838D9F2DCE893800150C45 /* Errors */,
+				5C6201122DCE3F01009D6FCA /* Extensions */,
 				5CC953D22DC50F3400474AD0 /* Auth */,
 				5C47538B2DB55BC600A9CDDB /* DataModel */,
 			);
@@ -108,10 +118,44 @@
 			isa = PBXGroup;
 			children = (
 				5CC953EA2DC54FBD00474AD0 /* GoogleSignInModel.swift */,
+				5C6201082DCE29CA009D6FCA /* Route.swift */,
 				5CC953D52DC5104E00474AD0 /* AuthDataModel.swift */,
-				5C47538C2DB55BD400A9CDDB /* Route.swift */,
 			);
 			path = DataModel;
+			sourceTree = "<group>";
+		};
+		5C6201122DCE3F01009D6FCA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5C838D9E2DCE88D000150C45 /* Firebase */,
+				5C838D9D2DCE88C400150C45 /* SUI */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5C838D9D2DCE88C400150C45 /* SUI */ = {
+			isa = PBXGroup;
+			children = (
+				5C838D9B2DCE88AE00150C45 /* ScaleButtonStyle.swift */,
+			);
+			path = SUI;
+			sourceTree = "<group>";
+		};
+		5C838D9E2DCE88D000150C45 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				5C6201132DCE3F0C009D6FCA /* Firestore+Extensions.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		5C838D9F2DCE893800150C45 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				5C838DA22DCE895800150C45 /* AuthError.swift */,
+				5C838DA02DCE894C00150C45 /* MapError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		5CC953CF2DC50CF600474AD0 /* ViewModel */ = {
@@ -171,7 +215,6 @@
 		B02AB1E82CD8E2D400F98888 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				B02AB1EA2CD8E2EB00F98888 /* Model */,
 				B02AB1E92CD8E2E500F98888 /* View */,
 				B02AB1EB2CD8E2F200F98888 /* ViewModel */,
 			);
@@ -184,14 +227,6 @@
 				B02AB1F02CD8E46D00F98888 /* MapView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		B02AB1EA2CD8E2EB00F98888 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B02AB1F52CDA384A00F98888 /* MapModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		B02AB1EB2CD8E2F200F98888 /* ViewModel */ = {
@@ -368,19 +403,22 @@
 			files = (
 				5CC953D42DC50F4B00474AD0 /* AuthenticationManager.swift in Sources */,
 				B02AB2052CDA3F3100F98888 /* RoutesModel.swift in Sources */,
-				B02AB1F62CDA384A00F98888 /* MapModel.swift in Sources */,
 				B02AB1DD2CD8DCF100F98888 /* RootView.swift in Sources */,
-				5C47538D2DB55BE700A9CDDB /* Route.swift in Sources */,
 				B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */,
 				5CC953E22DC5492700474AD0 /* AuthenticationViewModel.swift in Sources */,
 				B02AB1FB2CDA38BB00F98888 /* ProfileModel.swift in Sources */,
 				5CC953EB2DC54FC600474AD0 /* GoogleSignInModel.swift in Sources */,
 				5CC953D62DC5105A00474AD0 /* AuthDataModel.swift in Sources */,
 				B02AB1DB2CD8DCF100F98888 /* RouteRunApp.swift in Sources */,
+				5C838D9C2DCE88B900150C45 /* ScaleButtonStyle.swift in Sources */,
 				5C4753892DB5537000A9CDDB /* AuthenticationView.swift in Sources */,
+				5C6201092DCE29CA009D6FCA /* Route.swift in Sources */,
 				5CC953E52DC54AFD00474AD0 /* Utilities.swift in Sources */,
 				B02AB2072CDA3F3D00F98888 /* RoutesView.swift in Sources */,
 				B02AB1FD2CDA38C500F98888 /* ProfileView.swift in Sources */,
+				5C838DA32DCE895800150C45 /* AuthError.swift in Sources */,
+				5C6201142DCE3F0F009D6FCA /* Firestore+Extensions.swift in Sources */,
+				5C838DA12DCE894C00150C45 /* MapError.swift in Sources */,
 				B02AB2092CDA3F4900F98888 /* RoutesViewModel.swift in Sources */,
 				B02AB1FF2CDA38D900F98888 /* ProfileViewModel.swift in Sources */,
 				B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */,
@@ -521,12 +559,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RouteRun/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Нам нужна ваша локация чтобы отслеживать передвижения в фоновом режиме";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -552,12 +591,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RouteRun/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Нам нужна ваша локация чтобы отслеживать передвижения в фоновом режиме";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -622,6 +662,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5C6200FE2DCE26C4009D6FCA /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CC953C72DC50A6800474AD0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
 		5CC953C82DC50A6800474AD0 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5CC953C72DC50A6800474AD0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

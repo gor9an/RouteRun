@@ -9,19 +9,6 @@ import Foundation
 import FirebaseAuth
 import GoogleSignIn
 
-enum AuthError: Error {
-    case emailNotVerified
-}
-
-extension AuthError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .emailNotVerified:
-            return NSLocalizedString("Подтвердите Email.", comment: "Email не подтвержден")
-        }
-    }
-}
-
 final class AuthenticationManager {
     static let shared = AuthenticationManager()
     private init() { }
