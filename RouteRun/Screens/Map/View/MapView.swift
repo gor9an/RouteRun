@@ -110,13 +110,13 @@ private extension MapView {
             Text(viewModel.formattedTime)
                 .font(.title)
                 .padding()
-                .background(Color.secondary.opacity(0.8))
+                .background(Color.secondary.opacity(0.4))
                 .cornerRadius(10)
 
             Text(viewModel.formattedDistance)
                 .font(.title2)
                 .padding()
-                .background(Color.secondary.opacity(0.8))
+                .background(Color.secondary.opacity(0.4))
                 .cornerRadius(10)
         }
         .padding(.top, 40)
