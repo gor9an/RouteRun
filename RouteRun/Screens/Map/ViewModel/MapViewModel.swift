@@ -10,7 +10,18 @@ import Firebase
 import FirebaseFirestore
 
 final class MapViewModel: NSObject, ObservableObject {
-    private var locationManager: CLLocationManager?
+    private lazy var locationManager: CLLocationManager = {
+        var _locationManager = CLLocationManager()
+        _locationManager.delegate = self
+        _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        _locationManager.activityType = .fitness
+        _locationManager.distanceFilter = 5.0
+        _locationManager.allowsBackgroundLocationUpdates = true // allow in background
+        _locationManager.pausesLocationUpdatesAutomatically = false
+
+
+        return _locationManager
+    }()
     private var routePoints: [CLLocationCoordinate2D] = []
     private var startDate: Date?
     private var lastLocation: CLLocation?
@@ -29,23 +40,10 @@ final class MapViewModel: NSObject, ObservableObject {
     private let db = Firestore.firestore()
 
     func checkLocationIsEnable() {
-        DispatchQueue.global().async { [weak self] in
-            if let self,
-               CLLocationManager.locationServicesEnabled() {
-                self.locationManager = CLLocationManager()
-                self.locationManager?.delegate = self
-                self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-                self.locationManager?.activityType = .fitness
-                self.checkLocationAuthorization()
-            } else {
-                print("location services disabled")
-            }
-        }
+        self.checkLocationAuthorization()
     }
 
     private func checkLocationAuthorization() {
-        guard let locationManager else { return }
-
         switch locationManager.authorizationStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
@@ -67,7 +65,7 @@ final class MapViewModel: NSObject, ObservableObject {
         if elapsedTime > 0 {
             isRecording = true
             startDate = Date().addingTimeInterval(-elapsedTime)
-            locationManager?.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
 
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 self?.elapsedTime += 1
@@ -80,7 +78,7 @@ final class MapViewModel: NSObject, ObservableObject {
         isRecording = true
         startDate = Date()
         lastLocation = nil
-        locationManager?.startUpdatingLocation()
+        locationManager.startUpdatingLocation()
 
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             self?.elapsedTime += 1
@@ -89,7 +87,7 @@ final class MapViewModel: NSObject, ObservableObject {
 
     func pauseRecording() {
         isRecording = false
-        locationManager?.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
         timer?.invalidate()
         timer = nil
     }
@@ -202,10 +200,8 @@ extension MapViewModel: CLLocationManagerDelegate {
         }
         lastLocation = newLocation
 
-        // Обновляем линию маршрута
         updateRouteLine()
     }
-
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()

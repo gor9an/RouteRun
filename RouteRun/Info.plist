@@ -21,5 +21,9 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Для записи ваших маршрутов</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Для записи маршрутов в фоне</string>
 </dict>
 </plist>

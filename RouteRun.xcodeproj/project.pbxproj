@@ -40,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C0B7CBD2DD0AC8F00430836 /* test_route.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = test_route.gpx; path = ../test_route.gpx; sourceTree = "<group>"; };
 		5C4753862DB5537000A9CDDB /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		5C6201082DCE29CA009D6FCA /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		5C6201132DCE3F0C009D6FCA /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
@@ -177,6 +178,7 @@
 		B02AB1CE2CD8DCF100F98888 = {
 			isa = PBXGroup;
 			children = (
+				5C0B7CBD2DD0AC8F00430836 /* test_route.gpx */,
 				B02AB1D92CD8DCF100F98888 /* RouteRun */,
 				B02AB1D82CD8DCF100F98888 /* Products */,
 			);
