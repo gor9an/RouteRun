@@ -1,10 +1,3 @@
-//
-//  MapScreenView.swift
-//  RouteRun
-//
-//  Created by Andrey Gordienko on 04.11.2024.
-//
-
 import SwiftUI
 import MapKit
 
@@ -17,25 +10,25 @@ struct MapView: View {
     @State private var errorDescription = ""
     @State private var routeName = ""
     @State private var routeDescription = ""
-
+    
     init() {
         viewModel.checkLocationIsEnable()
     }
-
+    
     var body: some View {
         ZStack {
             MapView()
-
+            
             VStack {
                 HStack {
                     RouteData()
                     Spacer()
                 }
-
+                
                 Spacer()
-
+                
                 ControlPanel()
-
+                
             }.alert("Ошибка", isPresented: $showErrorAlert) {
                 Button("Хорошо", role: .cancel) {
                     errorDescription = ""
@@ -54,7 +47,7 @@ private extension MapView {
     private func MapView() -> some View {
         Map(position: $position) {
             UserAnnotation()
-
+            
             if let routeLine = viewModel.routeLine {
                 MapPolyline(routeLine)
                     .stroke(.blue, lineWidth: 4)
@@ -68,7 +61,7 @@ private extension MapView {
         .alert("Сохранение маршрута", isPresented: $showingSaveAlert) {
             TextField("Название маршрута*", text: $routeName)
             TextField("Описание маршрута*", text: $routeDescription)
-
+            
             Button("Сохранить") {
                 let trimmedName = routeName.trimmingCharacters(in: .whitespacesAndNewlines)
                 let trimmedDescription = routeDescription.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -81,10 +74,10 @@ private extension MapView {
                 routeName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                 || routeDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             )
-
+            
             Button("Продолжить", role: .cancel) {
                 viewModel.startRecordingRoute()
-
+                
             }
         } message: {
             if let route = viewModel.currentRoute {
@@ -104,7 +97,7 @@ private extension MapView {
             Text("Вы уверены, что хотите сбросить текущую запись? Все данные будут потеряны.")
         }
     }
-
+    
     private func RouteData() -> some View {
         VStack {
             Text(viewModel.formattedTime)
@@ -112,7 +105,7 @@ private extension MapView {
                 .padding()
                 .background(Color.secondary.opacity(0.4))
                 .cornerRadius(10)
-
+            
             Text(viewModel.formattedDistance)
                 .font(.title2)
                 .padding()
@@ -122,7 +115,7 @@ private extension MapView {
         .padding(.top, 40)
         .padding(.leading, 20)
     }
-
+    
     private func ControlPanel() -> some View {
         HStack(spacing: 20) {
             if viewModel.isRecording {
@@ -131,10 +124,10 @@ private extension MapView {
                         insertion: .move(edge: .leading).combined(with: .opacity),
                         removal: .move(edge: .leading).combined(with: .opacity)
                     ))
-
+                
                 StopButton()
                     .transition(.scale.combined(with: .opacity))
-
+                
                 ResetButton()
                     .transition(.asymmetric(
                         insertion: .move(edge: .trailing).combined(with: .opacity),
@@ -148,10 +141,10 @@ private extension MapView {
         .padding(.bottom, 30)
         .animation(.spring(response: 0.4, dampingFraction: 0.7), value: viewModel.isRecording)
     }
-
+    
     private func PauseButton() -> some View {
         Button(action: {
-                viewModel.pauseRecording()
+            viewModel.pauseRecording()
         }) {
             Image(systemName: "pause.fill")
                 .symbolEffect(.bounce, options: .speed(2), value: viewModel.isRecording)
@@ -170,16 +163,16 @@ private extension MapView {
         }
         .buttonStyle(ScaleButtonStyle())
     }
-
+    
     private func StopButton() -> some View {
         Button(action: {
-                do {
-                    try viewModel.stopRecordingRoute()
-                    showingSaveAlert = true
-                } catch {
-                    showErrorAlert = true
-                    errorDescription = error.localizedDescription
-                }
+            do {
+                try viewModel.stopRecordingRoute()
+                showingSaveAlert = true
+            } catch {
+                showErrorAlert = true
+                errorDescription = error.localizedDescription
+            }
         }) {
             Image(systemName: "stop.fill")
                 .foregroundColor(.white)
@@ -199,10 +192,10 @@ private extension MapView {
         }
         .buttonStyle(ScaleButtonStyle())
     }
-
+    
     private func ResetButton() -> some View {
         Button(action: {
-                showingResetAlert = true
+            showingResetAlert = true
         }) {
             Image(systemName: "xmark")
                 .foregroundColor(.white)
@@ -215,10 +208,10 @@ private extension MapView {
         }
         .buttonStyle(ScaleButtonStyle())
     }
-
+    
     private func ResumeButton() -> some View {
         Button(action: {
-                viewModel.startRecordingRoute()
+            viewModel.startRecordingRoute()
         }) {
             Image(systemName: viewModel.elapsedTime > 0 ? "play.fill" : "record.circle.fill")
                 .symbolEffect(.bounce, options: .speed(2), value: viewModel.isRecording)

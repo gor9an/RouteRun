@@ -1,10 +1,3 @@
-//
-//  ProfileView.swift
-//  RouteRun
-//
-//  Created by Andrey Gordienko on 05.11.2024.
-//
-
 import SwiftUI
 import Kingfisher
 
@@ -12,7 +5,7 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
     @State var showAlert = false
-
+    
     var body: some View {
         VStack {
             HStack(spacing: 16) {
@@ -24,32 +17,32 @@ struct ProfileView: View {
                 } else {
                     PlaceholderImage()
                 }
-
+                
                 DisplayName()
-
+                
                 Spacer()
-
+                
                 ExitButton()
             }
             .padding()
-
+            
             Spacer()
         }
     }
-
+    
     private func PlaceholderImage() -> some View {
         Image(systemName: "person.circle.fill")
             .resizable()
             .frame(width: 100, height: 100)
     }
-
+    
     private func DisplayName() -> some View {
         Text(viewModel.getDisplayName())
             .lineLimit(1)
             .font(.headline)
             .bold()
     }
-
+    
     private func ExitButton() -> some View {
         Button(
             action: {
@@ -61,7 +54,7 @@ struct ProfileView: View {
                     .frame(width: 35, height: 50)
                     .padding()
                     .tint(.red)
-
+                
             }
         )
         .alert(
@@ -70,36 +63,36 @@ struct ProfileView: View {
             ExitAlert()
         }
     }
-
+    
     private func ExitAlert() -> Alert {
-            Alert(
-                title: Text(
-                    "Выход"
+        Alert(
+            title: Text(
+                "Выход"
+            ),
+            message: Text(
+                "Вы точно хотите выйти?"
+            ),
+            primaryButton: .default(
+                Text(
+                    "Выйти"
                 ),
-                message: Text(
-                    "Вы точно хотите выйти?"
+                action: {
+                    do {
+                        try viewModel.logout()
+                        showSignInView = true
+                    } catch {}
+                    showAlert = false
+                }
+            ),
+            secondaryButton: .cancel(
+                Text(
+                    "Нет"
                 ),
-                primaryButton: .default(
-                    Text(
-                        "Выйти"
-                    ),
-                    action: {
-                        do {
-                            try viewModel.logout()
-                            showSignInView = true
-                        } catch {}
-                        showAlert = false
-                    }
-                ),
-                secondaryButton: .cancel(
-                    Text(
-                        "Нет"
-                    ),
-                    action: {
-                        showAlert = false
-                    }
-                )
+                action: {
+                    showAlert = false
+                }
             )
+        )
     }
 }
 
@@ -111,9 +104,9 @@ struct ProfileView: View {
 }
 
 extension View {
-     public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
-         let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
-         return clipShape(roundedRect)
-              .overlay(roundedRect.strokeBorder(content, lineWidth: width))
-     }
- }
+    public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
+        let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
+        return clipShape(roundedRect)
+            .overlay(roundedRect.strokeBorder(content, lineWidth: width))
+    }
+}

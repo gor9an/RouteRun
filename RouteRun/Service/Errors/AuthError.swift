@@ -1,10 +1,3 @@
-//
-//  AuthError.swift
-//  RouteRun
-//
-//  Created by Andrei Gordienko on 09.05.2025.
-//
-
 import Foundation
 
 enum AuthError: Error {

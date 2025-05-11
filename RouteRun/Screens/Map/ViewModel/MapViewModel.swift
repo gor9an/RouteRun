@@ -1,10 +1,3 @@
-//
-//  MapScreenViewModel.swift
-//  RouteRun
-//
-//  Created by Andrey Gordienko on 04.11.2024.
-//
-
 import MapKit
 import Firebase
 import FirebaseFirestore
@@ -18,31 +11,31 @@ final class MapViewModel: NSObject, ObservableObject {
         _locationManager.distanceFilter = 5.0
         _locationManager.allowsBackgroundLocationUpdates = true // allow in background
         _locationManager.pausesLocationUpdatesAutomatically = false
-
-
+        
+        
         return _locationManager
     }()
     private var routePoints: [CLLocationCoordinate2D] = []
     private var startDate: Date?
     private var lastLocation: CLLocation?
     private var timer: Timer?
-
+    
     @Published var currentRoute: Route?
     @Published var isRecording = false
     @Published var elapsedTime: TimeInterval = 0
     @Published var distance: Double = 0
     @Published var routeLine: MKPolyline?
     @Published var routeDescription = ""
-
+    
     private let geocoder = CLGeocoder()
     @Published var currentCity: String = "Unknown"
-
+    
     private let db = Firestore.firestore()
-
+    
     func checkLocationIsEnable() {
         self.checkLocationAuthorization()
     }
-
+    
     private func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
         case .notDetermined:
@@ -57,50 +50,50 @@ final class MapViewModel: NSObject, ObservableObject {
             break
         }
     }
-
+    
     func startRecordingRoute() {
         guard !isRecording else { return }
-
+        
         // Если это продолжение записи
         if elapsedTime > 0 {
             isRecording = true
             startDate = Date().addingTimeInterval(-elapsedTime)
             locationManager.startUpdatingLocation()
-
+            
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 self?.elapsedTime += 1
             }
             return
         }
-
+        
         // Новая запись
         resetRecording()
         isRecording = true
         startDate = Date()
         lastLocation = nil
         locationManager.startUpdatingLocation()
-
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             self?.elapsedTime += 1
         }
     }
-
+    
     func pauseRecording() {
         isRecording = false
         locationManager.stopUpdatingLocation()
         timer?.invalidate()
         timer = nil
     }
-
+    
     private func determineCity(for location: CLLocation) {
         geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
             guard let self = self else { return }
-
+            
             if let error = error {
                 print("Geocoding error: \(error.localizedDescription)")
                 return
             }
-
+            
             if let city = placemarks?.first?.locality {
                 DispatchQueue.main.async {
                     self.currentCity = city
@@ -108,25 +101,25 @@ final class MapViewModel: NSObject, ObservableObject {
             }
         }
     }
-
+    
     func stopRecordingRoute() throws {
         guard isRecording else { return }
-
+        
         pauseRecording()
-
+        
         var userId = ""
-
+        
         do {
             userId = try AuthenticationManager.shared.getAuthenticatedUser().uid
         } catch {
             print("No user logged in")
             throw MapError.unAuthorized
         }
-
+        
         if let startDate = startDate, let firstLocation = routePoints.first {
             let location = CLLocation(latitude: firstLocation.latitude, longitude: firstLocation.longitude)
             determineCity(for: location)
-
+            
             currentRoute = Route(
                 name: "",
                 description: routeDescription,
@@ -141,21 +134,21 @@ final class MapViewModel: NSObject, ObservableObject {
             throw MapError.distanceZero
         }
     }
-
+    
     func saveRoute(name: String, description: String) {
         guard var route = currentRoute else { return }
         route.name = name
         route.description = description
         route.city = currentCity
-
+        
         do {
-            try db.collection("routes").document(route.id).setData(from: route)
+            try db.collection("routes").document(route.id ?? "").setData(from: route)
             resetRecording()
         } catch {
             print("Error saving route: \(error.localizedDescription)")
         }
     }
-
+    
     func resetRecording() {
         isRecording = false
         routePoints.removeAll()
@@ -169,13 +162,13 @@ final class MapViewModel: NSObject, ObservableObject {
         timer?.invalidate()
         timer = nil
     }
-
+    
     private func updateRouteLine() {
         guard !routePoints.isEmpty else {
             routeLine = nil
             return
         }
-
+        
         let coordinates = routePoints
         routeLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
     }
@@ -184,25 +177,25 @@ final class MapViewModel: NSObject, ObservableObject {
 extension MapViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last, isRecording else { return }
-
+        
         guard newLocation.horizontalAccuracy <= 50 else { return }
-
+        
         if routePoints.isEmpty {
             determineCity(for: newLocation)
         }
-
+        
         let coordinate = newLocation.coordinate
         routePoints.append(coordinate)
-
+        
         // Рассчитываем расстояние
         if let lastLocation = lastLocation {
             distance += newLocation.distance(from: lastLocation)
         }
         lastLocation = newLocation
-
+        
         updateRouteLine()
     }
-
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }
@@ -216,7 +209,7 @@ extension MapViewModel {
         formatter.zeroFormattingBehavior = .pad
         return formatter.string(from: elapsedTime) ?? "00:00:00"
     }
-
+    
     var formattedDistance: String {
         if distance >= 1000 {
             return String(format: "%.2f км", distance / 1000)

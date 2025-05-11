@@ -1,10 +1,3 @@
-//
-//  LoginView.swift
-//  RouteRun
-//
-//  Created by Andrey Gordienko on 17.11.2024.
-//
-
 import SwiftUI
 import GoogleSignInSwift
 
@@ -13,9 +6,9 @@ struct AuthenticationView: View {
     @StateObject var viewModel: AuthenticationViewModel = AuthenticationViewModel()
     @State var showAlert = false
     @State var errorMessage = ""
-
+    
     @State var showResetAlert = false
-
+    
     var body: some View {
         VStack(alignment: .center, spacing: 16) {
             VStack(spacing: 16) {
@@ -30,7 +23,7 @@ struct AuthenticationView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("RouteRun")
     }
-
+    
     private func Header() -> some View {
         HStack {
             Text("Войдите в аккаунт")
@@ -40,11 +33,11 @@ struct AuthenticationView: View {
         }
         .padding(16)
     }
-
+    
     private func LogIn() -> some View {
         VStack(spacing: 20) {
             LogInWithEmail()
-
+            
             ZStack {
                 Divider()
                     .overlay(Color(.systemBackground).opacity(0.9))
@@ -55,28 +48,28 @@ struct AuthenticationView: View {
                     .padding(5)
                     .background(Color(.label))
             }
-
+            
             GoogleButton()
         }
         .padding(25)
         .background(Color(.label))
         .cornerRadius(30)
     }
-
+    
     private func LogInWithEmail() -> some View {
         VStack {
             EmailField()
             PasswordField()
-
+            
             Divider()
                 .overlay(Color(.systemBackground).opacity(0.9))
-
+            
             LoginButton()
             SignUpButton()
             ForgotPasswordButton()
         }
     }
-
+    
     private func EmailField() -> some View {
         TextField("Email", text: $viewModel.email)
             .padding()
@@ -84,30 +77,30 @@ struct AuthenticationView: View {
             .cornerRadius(10)
             .autocapitalization(.none)
     }
-
+    
     private func PasswordField() -> some View {
         SecureField("Пароль", text: $viewModel.password)
             .padding()
             .background(Color(.systemBackground).opacity(0.9))
             .cornerRadius(10)
     }
-
+    
     private func LoginButton() -> some View {
         Button {
             Task {
                 do {
                     try await viewModel.signIn()
                     try viewModel.isEmailVerified()
-
+                    
                     showSignInView = false
                     errorMessage = ""
                 } catch {
                     showAlert = true
                     errorMessage = error.localizedDescription
                 }
-
+                
             }
-
+            
         } label: {
             Text("Войти с Email")
                 .padding()
@@ -124,7 +117,7 @@ struct AuthenticationView: View {
             BadEmailAlert()
         }
     }
-
+    
     private func SignUpButton() -> some View {
         Button {
             Task {
@@ -136,7 +129,7 @@ struct AuthenticationView: View {
                     showAlert = true
                     errorMessage = error.localizedDescription
                 }
-
+                
             }
         } label: {
             Text("Зарегистрироваться с Email")
@@ -170,7 +163,7 @@ struct AuthenticationView: View {
             )
         }
     }
-
+    
     private func ForgotPasswordButton() -> some View {
         Button(
             action: {
@@ -200,7 +193,7 @@ struct AuthenticationView: View {
             ResetAlert()
         }
     }
-
+    
     private func GoogleButton() -> some View {
         GoogleSignInButton(
             viewModel: GoogleSignInButtonViewModel(
@@ -216,9 +209,9 @@ struct AuthenticationView: View {
                         showSignInView = true
                     }
                 }
-        }
+            }
     }
-
+    
     private func BadEmailAlert() -> Alert {
         Alert(
             title: Text(
@@ -238,24 +231,24 @@ struct AuthenticationView: View {
             )
         )
     }
-
+    
     private func ResetAlert() -> Alert {
-            Alert(
-                title: Text(
-                    "Проверьте почту"
+        Alert(
+            title: Text(
+                "Проверьте почту"
+            ),
+            message: Text(
+                "На вашу почту отправлено письмо со сбросом пароля"
+            ),
+            dismissButton: .cancel(
+                Text(
+                    "Ок"
                 ),
-                message: Text(
-                    "На вашу почту отправлено письмо со сбросом пароля"
-                ),
-                dismissButton: .cancel(
-                    Text(
-                        "Ок"
-                    ),
-                    action: {
-                        showAlert = false
-                    }
-                )
+                action: {
+                    showAlert = false
+                }
             )
+        )
     }
 }
 

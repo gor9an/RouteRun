@@ -1,18 +1,11 @@
-//
-//  Untitled.swift
-//  RouteRun
-//
-//  Created by Andrei Gordienko on 02.05.2025.
-//
-
 import Foundation
 import UIKit
 
 final class Utilities {
-
+    
     static let shared = Utilities()
     private init() {}
-
+    
     @MainActor
     func topViewController(controller: UIViewController? = nil) -> UIViewController? {
         let controller = controller
@@ -21,7 +14,7 @@ final class Utilities {
             .connectedScenes
             .compactMap { ($0 as? UIWindowScene)?.keyWindow }
             .last?.rootViewController
-
+        
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)
         }
