@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C0B7CDB2DD0DEB800430836 /* RoutesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B7CDA2DD0DEB800430836 /* RoutesModel.swift */; };
+		5C0B7CDF2DD10B7D00430836 /* RouteUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B7CDE2DD10B7D00430836 /* RouteUser.swift */; };
+		5C0B7CE12DD10B8E00430836 /* RoutesModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B7CE02DD10B8E00430836 /* RoutesModelProtocol.swift */; };
+		5C0B7CE42DD10BF000430836 /* RouteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B7CE32DD10BF000430836 /* RouteCardView.swift */; };
+		5C0B7CE62DD10C0200430836 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B7CE52DD10C0200430836 /* RouteDetailView.swift */; };
+		5C0B7CEE2DD10C5F00430836 /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B7CED2DD10C5F00430836 /* RouteMapView.swift */; };
+		5C0B7CF12DD137BC00430836 /* Array+Extensions.swift in Resources */ = {isa = PBXBuildFile; fileRef = 5C0B7CF02DD137BC00430836 /* Array+Extensions.swift */; };
 		5C4753892DB5537000A9CDDB /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4753862DB5537000A9CDDB /* AuthenticationView.swift */; };
 		5C6200FF2DCE26C4009D6FCA /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5C6200FE2DCE26C4009D6FCA /* FirebaseFirestore */; };
 		5C6201092DCE29CA009D6FCA /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6201082DCE29CA009D6FCA /* Route.swift */; };
@@ -34,13 +41,19 @@
 		B02AB1FB2CDA38BB00F98888 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */; };
 		B02AB1FD2CDA38C500F98888 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FC2CDA38C500F98888 /* ProfileView.swift */; };
 		B02AB1FF2CDA38D900F98888 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */; };
-		B02AB2052CDA3F3100F98888 /* RoutesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB2042CDA3F3100F98888 /* RoutesModel.swift */; };
 		B02AB2072CDA3F3D00F98888 /* RoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB2062CDA3F3D00F98888 /* RoutesView.swift */; };
 		B02AB2092CDA3F4900F98888 /* RoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB2082CDA3F4900F98888 /* RoutesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5C0B7CBD2DD0AC8F00430836 /* test_route.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = test_route.gpx; path = ../test_route.gpx; sourceTree = "<group>"; };
+		5C0B7CDA2DD0DEB800430836 /* RoutesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesModel.swift; sourceTree = "<group>"; };
+		5C0B7CDE2DD10B7D00430836 /* RouteUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteUser.swift; sourceTree = "<group>"; };
+		5C0B7CE02DD10B8E00430836 /* RoutesModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesModelProtocol.swift; sourceTree = "<group>"; };
+		5C0B7CE32DD10BF000430836 /* RouteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCardView.swift; sourceTree = "<group>"; };
+		5C0B7CE52DD10C0200430836 /* RouteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailView.swift; sourceTree = "<group>"; };
+		5C0B7CED2DD10C5F00430836 /* RouteMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
+		5C0B7CF02DD137BC00430836 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 		5C4753862DB5537000A9CDDB /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		5C6201082DCE29CA009D6FCA /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		5C6201132DCE3F0C009D6FCA /* Firestore+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firestore+Extensions.swift"; sourceTree = "<group>"; };
@@ -64,7 +77,6 @@
 		B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		B02AB1FC2CDA38C500F98888 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		B02AB2042CDA3F3100F98888 /* RoutesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesModel.swift; sourceTree = "<group>"; };
 		B02AB2062CDA3F3D00F98888 /* RoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesView.swift; sourceTree = "<group>"; };
 		B02AB2082CDA3F4900F98888 /* RoutesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +98,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C0B7CD72DD0DE0200430836 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5C0B7CE02DD10B8E00430836 /* RoutesModelProtocol.swift */,
+				5C0B7CDA2DD0DEB800430836 /* RoutesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5C0B7CE22DD10BD000430836 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				5C0B7CED2DD10C5F00430836 /* RouteMapView.swift */,
+				5C0B7CE52DD10C0200430836 /* RouteDetailView.swift */,
+				5C0B7CE32DD10BF000430836 /* RouteCardView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		5C0B7CEF2DD137B600430836 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				5C0B7CF02DD137BC00430836 /* Array+Extensions.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
 		5C4753872DB5537000A9CDDB /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +157,7 @@
 		5C47538B2DB55BC600A9CDDB /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				5C0B7CDE2DD10B7D00430836 /* RouteUser.swift */,
 				5CC953EA2DC54FBD00474AD0 /* GoogleSignInModel.swift */,
 				5C6201082DCE29CA009D6FCA /* Route.swift */,
 				5CC953D52DC5104E00474AD0 /* AuthDataModel.swift */,
@@ -128,6 +168,7 @@
 		5C6201122DCE3F01009D6FCA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				5C0B7CEF2DD137B600430836 /* Foundation */,
 				5C838D9E2DCE88D000150C45 /* Firebase */,
 				5C838D9D2DCE88C400150C45 /* SUI */,
 			);
@@ -285,7 +326,7 @@
 		B02AB2002CDA3E9100F98888 /* Routes */ = {
 			isa = PBXGroup;
 			children = (
-				B02AB2032CDA3ED700F98888 /* Model */,
+				5C0B7CD72DD0DE0200430836 /* Model */,
 				B02AB2022CDA3ECD00F98888 /* View */,
 				B02AB2012CDA3EC600F98888 /* ViewModel */,
 			);
@@ -303,17 +344,10 @@
 		B02AB2022CDA3ECD00F98888 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5C0B7CE22DD10BD000430836 /* Subviews */,
 				B02AB2062CDA3F3D00F98888 /* RoutesView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		B02AB2032CDA3ED700F98888 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B02AB2042CDA3F3100F98888 /* RoutesModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		B02AB20A2CDA3F5600F98888 /* Screens */ = {
@@ -392,6 +426,7 @@
 			files = (
 				B02AB1E22CD8DCF500F98888 /* Preview Assets.xcassets in Resources */,
 				B02AB1DF2CD8DCF500F98888 /* Assets.xcassets in Resources */,
+				5C0B7CF12DD137BC00430836 /* Array+Extensions.swift in Resources */,
 				5CC953DD2DC545D100474AD0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,14 +439,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CC953D42DC50F4B00474AD0 /* AuthenticationManager.swift in Sources */,
-				B02AB2052CDA3F3100F98888 /* RoutesModel.swift in Sources */,
 				B02AB1DD2CD8DCF100F98888 /* RootView.swift in Sources */,
+				5C0B7CE12DD10B8E00430836 /* RoutesModelProtocol.swift in Sources */,
 				B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */,
 				5CC953E22DC5492700474AD0 /* AuthenticationViewModel.swift in Sources */,
+				5C0B7CEE2DD10C5F00430836 /* RouteMapView.swift in Sources */,
 				B02AB1FB2CDA38BB00F98888 /* ProfileModel.swift in Sources */,
+				5C0B7CE62DD10C0200430836 /* RouteDetailView.swift in Sources */,
 				5CC953EB2DC54FC600474AD0 /* GoogleSignInModel.swift in Sources */,
 				5CC953D62DC5105A00474AD0 /* AuthDataModel.swift in Sources */,
 				B02AB1DB2CD8DCF100F98888 /* RouteRunApp.swift in Sources */,
+				5C0B7CDF2DD10B7D00430836 /* RouteUser.swift in Sources */,
 				5C838D9C2DCE88B900150C45 /* ScaleButtonStyle.swift in Sources */,
 				5C4753892DB5537000A9CDDB /* AuthenticationView.swift in Sources */,
 				5C6201092DCE29CA009D6FCA /* Route.swift in Sources */,
@@ -420,7 +458,9 @@
 				B02AB1FD2CDA38C500F98888 /* ProfileView.swift in Sources */,
 				5C838DA32DCE895800150C45 /* AuthError.swift in Sources */,
 				5C6201142DCE3F0F009D6FCA /* Firestore+Extensions.swift in Sources */,
+				5C0B7CE42DD10BF000430836 /* RouteCardView.swift in Sources */,
 				5C838DA12DCE894C00150C45 /* MapError.swift in Sources */,
+				5C0B7CDB2DD0DEB800430836 /* RoutesModel.swift in Sources */,
 				B02AB2092CDA3F4900F98888 /* RoutesViewModel.swift in Sources */,
 				B02AB1FF2CDA38D900F98888 /* ProfileViewModel.swift in Sources */,
 				B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */,

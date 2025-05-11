@@ -1,15 +1,8 @@
-//
-//  ContentView.swift
-//  RouteRun
-//
-//  Created by Andrey Gordienko on 04.11.2024.
-//
-
 import SwiftUI
 
 struct RootView: View {
     @State private var showSignInView: Bool = true
-
+    
     var body: some View {
         ZStack {
             if showSignInView {
@@ -22,7 +15,7 @@ struct RootView: View {
                         .tabItem {
                             Label("Карта", systemImage: "map")
                         }
-                    RoutesView(viewModel: RoutesViewModel())
+                    RoutesView()
                         .tabItem {
                             Label("Маршруты", systemImage: "road.lanes.curved.right")
                         }
@@ -37,7 +30,6 @@ struct RootView: View {
             let user = try? AuthenticationManager.shared.getAuthenticatedUser()
             showSignInView = user == nil
         }
-
     }
 }
 
