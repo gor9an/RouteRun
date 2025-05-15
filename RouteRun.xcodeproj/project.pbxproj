@@ -38,7 +38,6 @@
 		B02AB1E22CD8DCF500F98888 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */; };
 		B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */; };
 		B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1F02CD8E46D00F98888 /* MapView.swift */; };
-		B02AB1FB2CDA38BB00F98888 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */; };
 		B02AB1FD2CDA38C500F98888 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FC2CDA38C500F98888 /* ProfileView.swift */; };
 		B02AB1FF2CDA38D900F98888 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */; };
 		B02AB2072CDA3F3D00F98888 /* RoutesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02AB2062CDA3F3D00F98888 /* RoutesView.swift */; };
@@ -74,7 +73,6 @@
 		B02AB1E12CD8DCF500F98888 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B02AB1EE2CD8E38C00F98888 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		B02AB1F02CD8E46D00F98888 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		B02AB1FC2CDA38C500F98888 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		B02AB1FE2CDA38D900F98888 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		B02AB2062CDA3F3D00F98888 /* RoutesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesView.swift; sourceTree = "<group>"; };
@@ -292,19 +290,10 @@
 		B02AB1F42CDA380900F98888 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				B02AB1F72CDA388600F98888 /* Model */,
 				B02AB1F82CDA388D00F98888 /* View */,
 				B02AB1F92CDA389400F98888 /* ViewModel */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		B02AB1F72CDA388600F98888 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				B02AB1FA2CDA38BB00F98888 /* ProfileModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		B02AB1F82CDA388D00F98888 /* View */ = {
@@ -444,7 +433,6 @@
 				B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */,
 				5CC953E22DC5492700474AD0 /* AuthenticationViewModel.swift in Sources */,
 				5C0B7CEE2DD10C5F00430836 /* RouteMapView.swift in Sources */,
-				B02AB1FB2CDA38BB00F98888 /* ProfileModel.swift in Sources */,
 				5C0B7CE62DD10C0200430836 /* RouteDetailView.swift in Sources */,
 				5CC953EB2DC54FC600474AD0 /* GoogleSignInModel.swift in Sources */,
 				5CC953D62DC5105A00474AD0 /* AuthDataModel.swift in Sources */,

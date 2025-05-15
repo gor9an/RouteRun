@@ -5,11 +5,51 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
     @State var showAlert = false
+    var routesViewModel = RoutesViewModel()
+    
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Header
+                    Divider().padding(.horizontal)
+                    
+                    if viewModel.isLoading {
+                        ProgressView().padding()
+                    } else if !viewModel.likedRoutes.isEmpty {
+                        Text("Понравившиеся маршруты")
+                            .font(.title3)
+                            .padding(.horizontal)
+                        
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(viewModel.likedRoutes) { route in
+                                NavigationLink(destination: RouteDetailView(routeId: route.id, viewModel: routesViewModel)) {
+                                    RouteCard(route: route)
+                                }
+                            }
+                        }
+                        .padding()
+                    } else {
+                        Text("У вас пока нет понравившихся маршрутов")
+                            .foregroundColor(.gray)
+                            .padding()
+                    }
+                    
+                    Spacer()
+                }
+            }.onAppear {
+                Task { await viewModel.loadLikedRoutes() }
+                routesViewModel.routes = viewModel.likedRoutes
+            }
+        }
+    }
+    
+    private var Header: some View {
         VStack {
             HStack(spacing: 16) {
-                if let imageURL = viewModel.getImageURL() {
+                if let imageURL = viewModel.user?.photoURL {
                     KFImage(imageURL)
                         .resizable()
                         .frame(width: 100, height: 100)
@@ -94,19 +134,25 @@ struct ProfileView: View {
             )
         )
     }
-}
-
-#Preview {
-    @Previewable @State var showSignInView = false
-    NavigationStack {
-        ProfileView(showSignInView: $showSignInView)
-    }
-}
-
-extension View {
-    public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
-        let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
-        return clipShape(roundedRect)
-            .overlay(roundedRect.strokeBorder(content, lineWidth: width))
+    
+    private func RouteCard(route: Route) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            RouteMapView(coordinates: route.coordinates)
+                .frame(height: 120)
+                .cornerRadius(8)
+                .allowsHitTesting(false)
+            
+            Text(route.name)
+                .font(.headline)
+                .lineLimit(1)
+            
+            Text(route.city)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+        }
+        .padding(8)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(radius: 2)
     }
 }
