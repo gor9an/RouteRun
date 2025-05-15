@@ -1,10 +1,3 @@
-//
-//  ProfileView.swift
-//  RouteRun
-//
-//  Created by Andrey Gordienko on 05.11.2024.
-//
-
 import SwiftUI
 import Kingfisher
 
@@ -12,11 +5,51 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
     @State var showAlert = false
-
+    var routesViewModel = RoutesViewModel()
+    
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Header
+                    Divider().padding(.horizontal)
+                    
+                    if viewModel.isLoading {
+                        ProgressView().padding()
+                    } else if !viewModel.likedRoutes.isEmpty {
+                        Text("Понравившиеся маршруты")
+                            .font(.title3)
+                            .padding(.horizontal)
+                        
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(viewModel.likedRoutes) { route in
+                                NavigationLink(destination: RouteDetailView(routeId: route.id, viewModel: routesViewModel)) {
+                                    RouteCard(route: route)
+                                }
+                            }
+                        }
+                        .padding()
+                    } else {
+                        Text("У вас пока нет понравившихся маршрутов")
+                            .foregroundColor(.gray)
+                            .padding()
+                    }
+                    
+                    Spacer()
+                }
+            }.onAppear {
+                Task { await viewModel.loadLikedRoutes() }
+                routesViewModel.routes = viewModel.likedRoutes
+            }
+        }
+    }
+    
+    private var Header: some View {
         VStack {
             HStack(spacing: 16) {
-                if let imageURL = viewModel.getImageURL() {
+                if let imageURL = viewModel.user?.photoURL {
                     KFImage(imageURL)
                         .resizable()
                         .frame(width: 100, height: 100)
@@ -24,32 +57,32 @@ struct ProfileView: View {
                 } else {
                     PlaceholderImage()
                 }
-
+                
                 DisplayName()
-
+                
                 Spacer()
-
+                
                 ExitButton()
             }
             .padding()
-
+            
             Spacer()
         }
     }
-
+    
     private func PlaceholderImage() -> some View {
         Image(systemName: "person.circle.fill")
             .resizable()
             .frame(width: 100, height: 100)
     }
-
+    
     private func DisplayName() -> some View {
         Text(viewModel.getDisplayName())
             .lineLimit(1)
             .font(.headline)
             .bold()
     }
-
+    
     private func ExitButton() -> some View {
         Button(
             action: {
@@ -61,7 +94,7 @@ struct ProfileView: View {
                     .frame(width: 35, height: 50)
                     .padding()
                     .tint(.red)
-
+                
             }
         )
         .alert(
@@ -70,50 +103,56 @@ struct ProfileView: View {
             ExitAlert()
         }
     }
-
+    
     private func ExitAlert() -> Alert {
-            Alert(
-                title: Text(
-                    "Выход"
+        Alert(
+            title: Text(
+                "Выход"
+            ),
+            message: Text(
+                "Вы точно хотите выйти?"
+            ),
+            primaryButton: .default(
+                Text(
+                    "Выйти"
                 ),
-                message: Text(
-                    "Вы точно хотите выйти?"
+                action: {
+                    do {
+                        try viewModel.logout()
+                        showSignInView = true
+                    } catch {}
+                    showAlert = false
+                }
+            ),
+            secondaryButton: .cancel(
+                Text(
+                    "Нет"
                 ),
-                primaryButton: .default(
-                    Text(
-                        "Выйти"
-                    ),
-                    action: {
-                        do {
-                            try viewModel.logout()
-                            showSignInView = true
-                        } catch {}
-                        showAlert = false
-                    }
-                ),
-                secondaryButton: .cancel(
-                    Text(
-                        "Нет"
-                    ),
-                    action: {
-                        showAlert = false
-                    }
-                )
+                action: {
+                    showAlert = false
+                }
             )
+        )
+    }
+    
+    private func RouteCard(route: Route) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            RouteMapView(coordinates: route.coordinates)
+                .frame(height: 120)
+                .cornerRadius(8)
+                .allowsHitTesting(false)
+            
+            Text(route.name)
+                .font(.headline)
+                .lineLimit(1)
+            
+            Text(route.city)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+        }
+        .padding(8)
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(radius: 2)
     }
 }
-
-#Preview {
-    @Previewable @State var showSignInView = false
-    NavigationStack {
-        ProfileView(showSignInView: $showSignInView)
-    }
-}
-
-extension View {
-     public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
-         let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
-         return clipShape(roundedRect)
-              .overlay(roundedRect.strokeBorder(content, lineWidth: width))
-     }
- }

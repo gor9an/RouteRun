@@ -17,5 +17,13 @@
 	</array>
 	<key>GIDClientID</key>
 	<string>1083096739903-ovdtgbqpmf200ljg6gbr7sj3rnohi4br.apps.googleusercontent.com</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Для записи ваших маршрутов</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Для записи маршрутов в фоне</string>
 </dict>
 </plist>
