@@ -10,34 +10,22 @@ final class ProfileViewModel: ObservableObject {
     @Published var likedRoutes: [Route] = []
     @Published var isLoading = false
     @Published var error: Error?
-    
+
     private let db = Firestore.firestore()
-    
+
     init() {
         Task { await loadUserAndRoutes() }
     }
-    
+
     func loadUserAndRoutes() async {
         isLoading = true
         do {
             guard let authUser = try? AuthenticationManager.shared.getAuthenticatedUser() else { return }
-            
+
             let userDoc = try await db.collection("users").document(authUser.uid).getDocument()
             let user = try userDoc.data(as: RouteUser.self)
             self.user = user
-            
-            await loadLikedRoutes()
-        } catch {
-            self.error = error
-        }
-        isLoading = false
-    }
-    
-    func loadLikedRoutes() async {
-        isLoading = true
-        
-        guard let user = user else { return }
-        do {
+
             var routes: [Route] = []
             for routeId in user.likedRoutes {
                 let doc = try await db.collection("routes").document(routeId).getDocument()
@@ -45,20 +33,20 @@ final class ProfileViewModel: ObservableObject {
                     routes.append(route)
                 }
             }
-            
+
             self.likedRoutes = routes
+
         } catch {
             self.error = error
         }
-        
         isLoading = false
     }
-    
+
     func getDisplayName() -> String {
         let user = try? AuthenticationManager.shared.getAuthenticatedUser()
         return user?.displayName ?? user?.email ?? "User"
     }
-    
+
     func logout() throws {
         try AuthenticationManager.shared.signOut()
     }

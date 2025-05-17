@@ -40,7 +40,7 @@ struct ProfileView: View {
                     Spacer()
                 }
             }.onAppear {
-                Task { await viewModel.loadLikedRoutes() }
+                Task { await viewModel.loadUserAndRoutes() }
                 routesViewModel.routes = viewModel.likedRoutes
             }
         }
