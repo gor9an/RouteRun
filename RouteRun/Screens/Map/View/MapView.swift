@@ -81,8 +81,13 @@ private extension MapView {
             }
         } message: {
             if let route = viewModel.currentRoute {
-                Text("Дистанция: \(route.formattedDistance) \nВремя: \(route.formattedDuration) \nСредняя скорость: \(route.formattedAverageSpeed)")
-
+                Text("""
+                  Дистанция: \(route.formattedDistance)
+                  Время: \(route.formattedDuration)
+                  Скорость: \(route.formattedAverageSpeed)
+                  Калории: \(viewModel.formattedCalories)
+                  """)
+                
             }
         }
         .alert("Сбросить запись?", isPresented: $showingResetAlert) {
@@ -96,27 +101,35 @@ private extension MapView {
     }
     
     private func RouteData() -> some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text(viewModel.formattedTime)
                 .font(.title)
                 .padding()
                 .background(Color.secondary.opacity(0.4))
                 .cornerRadius(10)
-
+            
             Text(viewModel.formattedSpeed)
-                .font(.title2)
+                .font(.headline)
                 .padding()
                 .background(Color.secondary.opacity(0.4))
                 .cornerRadius(10)
-
+            
             Text(viewModel.formattedDistance)
-                .font(.title2)
+                .font(.headline)
+                .padding()
+                .background(Color.secondary.opacity(0.4))
+                .cornerRadius(10)
+            
+            Text(viewModel.formattedCalories)
+                .font(.headline)
                 .padding()
                 .background(Color.secondary.opacity(0.4))
                 .cornerRadius(10)
         }
-        .padding(.top, 40)
-        .padding(.leading, 20)
+        .padding(8)
+        .background(Color.primary.opacity(0.1))
+        .cornerRadius(10)
+        .padding(8)
     }
     
     private func ControlPanel() -> some View {
