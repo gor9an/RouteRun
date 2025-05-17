@@ -90,7 +90,6 @@ struct AuthenticationView: View {
             Task {
                 do {
                     try await viewModel.signIn()
-                    try viewModel.isEmailVerified()
                     
                     showSignInView = false
                     errorMessage = ""
@@ -215,7 +214,7 @@ struct AuthenticationView: View {
     private func BadEmailAlert() -> Alert {
         Alert(
             title: Text(
-                "Ошибка"
+                "Внимание"
             ),
             message: Text(
                 errorMessage

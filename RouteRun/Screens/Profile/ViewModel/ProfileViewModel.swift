@@ -10,7 +10,8 @@ final class ProfileViewModel: ObservableObject {
     @Published var likedRoutes: [Route] = []
     @Published var isLoading = false
     @Published var error: Error?
-    
+    @Published var newWeight: Int?
+
     private let db = Firestore.firestore()
     
     init() {
@@ -26,18 +27,6 @@ final class ProfileViewModel: ObservableObject {
             let user = try userDoc.data(as: RouteUser.self)
             self.user = user
             
-            await loadLikedRoutes()
-        } catch {
-            self.error = error
-        }
-        isLoading = false
-    }
-    
-    func loadLikedRoutes() async {
-        isLoading = true
-        
-        guard let user = user else { return }
-        do {
             var routes: [Route] = []
             for routeId in user.likedRoutes {
                 let doc = try await db.collection("routes").document(routeId).getDocument()
@@ -47,11 +36,21 @@ final class ProfileViewModel: ObservableObject {
             }
             
             self.likedRoutes = routes
+            
         } catch {
             self.error = error
         }
-        
         isLoading = false
+    }
+    
+    func updateWeight() {
+        guard let _ = try? AuthenticationManager.shared.getAuthenticatedUser().uid, let newWeight else { return }
+        do {
+            try user?.updateWeight(newWeight: newWeight)
+            user?.weight = newWeight
+        } catch {
+            self.error = error
+        }
     }
     
     func getDisplayName() -> String {

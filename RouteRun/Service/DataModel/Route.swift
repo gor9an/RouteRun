@@ -70,6 +70,7 @@ struct Route: Identifiable, Codable {
     var formattedDuration: String {
         let f = DateComponentsFormatter()
         f.allowedUnits = [.hour, .minute, .second]
+        f.calendar?.locale = Locale(identifier: "ru_RU")
         f.unitsStyle = .abbreviated
         return f.string(from: duration) ?? "0:00"
     }

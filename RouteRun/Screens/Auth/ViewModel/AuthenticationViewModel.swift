@@ -8,18 +8,20 @@ final class AuthenticationViewModel: ObservableObject {
     @Published var password: String = ""
     
     func signUp() async throws {
-        guard !email.isEmpty, !password.isEmpty else { return }
-        
+        guard !email.isEmpty, !password.isEmpty else { throw AuthError.emptyData }
+
         try await AuthenticationManager.shared.createUser(email: email, password: password)
     }
     
     func signIn() async throws {
-        guard !email.isEmpty, !password.isEmpty else { return }
-        
+        guard !email.isEmpty, !password.isEmpty else { throw AuthError.emptyData }
+
         try await AuthenticationManager.shared.signIn(email: email, password: password)
     }
     
     func resetPassword() async throws {
+        guard !email.isEmpty else { throw AuthError.emptyEmail }
+
         try await AuthenticationManager.shared.resetPassword(with: email)
     }
     

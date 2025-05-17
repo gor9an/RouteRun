@@ -12,13 +12,17 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading) {
-                    Header
-                    Divider().padding(.horizontal)
-                    
-                    if viewModel.isLoading {
-                        ProgressView().padding()
-                    } else if !viewModel.likedRoutes.isEmpty {
+                Header
+                Divider().padding(.horizontal)
+                
+                WeightChanger()
+                
+                Divider().padding(.horizontal)
+                
+                if viewModel.isLoading {
+                    ProgressView().padding()
+                } else if !viewModel.likedRoutes.isEmpty {
+                    VStack(alignment: .leading) {
                         Text("Понравившиеся маршруты")
                             .font(.title3)
                             .padding(.horizontal)
@@ -31,16 +35,17 @@ struct ProfileView: View {
                             }
                         }
                         .padding()
-                    } else {
-                        Text("У вас пока нет понравившихся маршрутов")
-                            .foregroundColor(.gray)
-                            .padding()
                     }
-                    
-                    Spacer()
+                } else {
+                    Text("У вас пока нет понравившихся маршрутов")
+                        .foregroundColor(.gray)
+                        .padding()
                 }
-            }.onAppear {
-                Task { await viewModel.loadLikedRoutes() }
+                
+                Spacer()
+            }
+            .onAppear {
+                Task { await viewModel.loadUserAndRoutes() }
                 routesViewModel.routes = viewModel.likedRoutes
             }
         }
@@ -68,6 +73,36 @@ struct ProfileView: View {
             
             Spacer()
         }
+    }
+    
+    private func WeightChanger() -> some View {
+        HStack {
+            Text("Вес, кг:")
+            Spacer()
+            Stepper(
+                value: Binding(
+                    get: { viewModel.newWeight ?? viewModel.user?.weight ?? 70 },
+                    set: { new in
+                        Task { viewModel.newWeight = new }
+                    }
+                ),
+                in: 30...200,
+                step: 1
+            ) {
+                Text("\(Int(viewModel.newWeight ?? viewModel.user?.weight ?? 70))")
+            }
+            .frame(width: 150)
+
+            Button(
+                action: {
+                    viewModel.updateWeight()
+                }) {
+                    Text("Сохранить")
+                }
+                .buttonStyle(.bordered)
+                .disabled(viewModel.newWeight == nil || viewModel.newWeight == viewModel.user?.weight)
+        }
+        .padding(.horizontal)
     }
     
     private func PlaceholderImage() -> some View {

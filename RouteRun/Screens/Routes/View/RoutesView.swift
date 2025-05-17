@@ -42,7 +42,7 @@ struct RoutesView: View {
                 AllRoutesSection()
             }
         }
-        .listStyle(.plain)
+        .listStyle(.insetGrouped)
     }
     
     private func SearchSection() -> some View {
