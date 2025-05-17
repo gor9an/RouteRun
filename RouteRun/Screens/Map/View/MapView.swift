@@ -81,11 +81,8 @@ private extension MapView {
             }
         } message: {
             if let route = viewModel.currentRoute {
-                VStack {
-                    Text("Дистанция: \(route.formattedDistance)")
-                    Text("Время: \(route.formattedDuration)")
-                    Text("Средняя скорость: \(route.formattedAverageSpeed)")
-                }
+                Text("Дистанция: \(route.formattedDistance) \nВремя: \(route.formattedDuration) \nСредняя скорость: \(route.formattedAverageSpeed)")
+
             }
         }
         .alert("Сбросить запись?", isPresented: $showingResetAlert) {
@@ -105,7 +102,13 @@ private extension MapView {
                 .padding()
                 .background(Color.secondary.opacity(0.4))
                 .cornerRadius(10)
-            
+
+            Text(viewModel.formattedSpeed)
+                .font(.title2)
+                .padding()
+                .background(Color.secondary.opacity(0.4))
+                .cornerRadius(10)
+
             Text(viewModel.formattedDistance)
                 .font(.title2)
                 .padding()

@@ -6,23 +6,23 @@ struct ProfileView: View {
     @Binding var showSignInView: Bool
     @State var showAlert = false
     var routesViewModel = RoutesViewModel()
-    
+
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading) {
-                    Header
-                    Divider().padding(.horizontal)
-                    
-                    if viewModel.isLoading {
-                        ProgressView().padding()
-                    } else if !viewModel.likedRoutes.isEmpty {
+                Header
+                Divider().padding(.horizontal)
+
+                if viewModel.isLoading {
+                    ProgressView().padding()
+                } else if !viewModel.likedRoutes.isEmpty {
+                    VStack(alignment: .leading) {
                         Text("Понравившиеся маршруты")
                             .font(.title3)
                             .padding(.horizontal)
-                        
+
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(viewModel.likedRoutes) { route in
                                 NavigationLink(destination: RouteDetailView(routeId: route.id, viewModel: routesViewModel)) {
@@ -31,21 +31,22 @@ struct ProfileView: View {
                             }
                         }
                         .padding()
-                    } else {
-                        Text("У вас пока нет понравившихся маршрутов")
-                            .foregroundColor(.gray)
-                            .padding()
                     }
-                    
-                    Spacer()
+                } else {
+                    Text("У вас пока нет понравившихся маршрутов")
+                        .foregroundColor(.gray)
+                        .padding()
                 }
-            }.onAppear {
+
+                Spacer()
+            }
+            .onAppear {
                 Task { await viewModel.loadUserAndRoutes() }
                 routesViewModel.routes = viewModel.likedRoutes
             }
         }
     }
-    
+
     private var Header: some View {
         VStack {
             HStack(spacing: 16) {
@@ -57,32 +58,32 @@ struct ProfileView: View {
                 } else {
                     PlaceholderImage()
                 }
-                
+
                 DisplayName()
-                
+
                 Spacer()
-                
+
                 ExitButton()
             }
             .padding()
-            
+
             Spacer()
         }
     }
-    
+
     private func PlaceholderImage() -> some View {
         Image(systemName: "person.circle.fill")
             .resizable()
             .frame(width: 100, height: 100)
     }
-    
+
     private func DisplayName() -> some View {
         Text(viewModel.getDisplayName())
             .lineLimit(1)
             .font(.headline)
             .bold()
     }
-    
+
     private func ExitButton() -> some View {
         Button(
             action: {
@@ -94,7 +95,7 @@ struct ProfileView: View {
                     .frame(width: 35, height: 50)
                     .padding()
                     .tint(.red)
-                
+
             }
         )
         .alert(
@@ -103,7 +104,7 @@ struct ProfileView: View {
             ExitAlert()
         }
     }
-    
+
     private func ExitAlert() -> Alert {
         Alert(
             title: Text(
@@ -134,18 +135,18 @@ struct ProfileView: View {
             )
         )
     }
-    
+
     private func RouteCard(route: Route) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             RouteMapView(coordinates: route.coordinates)
                 .frame(height: 120)
                 .cornerRadius(8)
                 .allowsHitTesting(false)
-            
+
             Text(route.name)
                 .font(.headline)
                 .lineLimit(1)
-            
+
             Text(route.city)
                 .font(.subheadline)
                 .foregroundColor(.secondary)

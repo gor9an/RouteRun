@@ -116,7 +116,7 @@ final class MapViewModel: NSObject, ObservableObject {
             throw MapError.unAuthorized
         }
         
-        if let startDate = startDate, let firstLocation = routePoints.first {
+        if let startDate = startDate, let firstLocation = routePoints.first, distance != 0 {
             let location = CLLocation(latitude: firstLocation.latitude, longitude: firstLocation.longitude)
             determineCity(for: location)
             
@@ -209,7 +209,15 @@ extension MapViewModel {
         formatter.zeroFormattingBehavior = .pad
         return formatter.string(from: elapsedTime) ?? "00:00:00"
     }
-    
+
+    var formattedSpeed: String {
+        guard distance != 0 && elapsedTime != 0 else {
+            return "0.00 км/ч"
+        }
+        
+        return String(format: "%.2f км/ч", distance / elapsedTime * 3.6)
+    }
+
     var formattedDistance: String {
         if distance >= 1000 {
             return String(format: "%.2f км", distance / 1000)
