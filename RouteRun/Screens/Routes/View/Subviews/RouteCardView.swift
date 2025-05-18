@@ -61,15 +61,23 @@ struct RouteCardView: View {
     }
     
     private func RouteInfo() -> some View {
-        HStack {
-            Label(route.city, systemImage: "mappin.and.ellipse")
-            Spacer()
-            
-            Label(route.formattedDistance, systemImage: "point.topleft.down.curvedto.point.bottomright.up")
-            Spacer()
-            
-            Label(route.formattedDuration, systemImage: "clock")
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(route.terrain.rawValue).font(.caption).padding(4).background(Color.gray.opacity(0.2)).cornerRadius(4)
+                Text(route.surface.rawValue).font(.caption).padding(4).background(Color.gray.opacity(0.2)).cornerRadius(4)
+                Text(route.activityType.rawValue).font(.caption).padding(4).background(Color.gray.opacity(0.2)).cornerRadius(4)
+            }
+
+            HStack {
+                Label(route.city, systemImage: "mappin.and.ellipse")
+                Spacer()
+
+                Label(route.formattedDistance, systemImage: "point.topleft.down.curvedto.point.bottomright.up")
+                Spacer()
+
+                Label(route.formattedDuration, systemImage: "clock")
+            }
+            .font(.caption)
         }
-        .font(.caption)
     }
 }

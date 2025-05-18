@@ -21,6 +21,10 @@
 		5C838D9C2DCE88B900150C45 /* ScaleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C838D9B2DCE88AE00150C45 /* ScaleButtonStyle.swift */; };
 		5C838DA12DCE894C00150C45 /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C838DA02DCE894C00150C45 /* MapError.swift */; };
 		5C838DA32DCE895800150C45 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C838DA22DCE895800150C45 /* AuthError.swift */; };
+		5CC2F4A72DDA168A003183E3 /* Terrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC2F4A62DDA168A003183E3 /* Terrain.swift */; };
+		5CC2F4A92DDA16A0003183E3 /* Surface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC2F4A82DDA16A0003183E3 /* Surface.swift */; };
+		5CC2F4AB2DDA16AF003183E3 /* ActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC2F4AA2DDA16AF003183E3 /* ActivityType.swift */; };
+		5CC2F4AD2DDA1A6B003183E3 /* SaveRouteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC2F4AC2DDA1A6B003183E3 /* SaveRouteSheet.swift */; };
 		5CC953C92DC50A6800474AD0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5CC953C82DC50A6800474AD0 /* FirebaseAnalytics */; };
 		5CC953CB2DC50A6800474AD0 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5CC953CA2DC50A6800474AD0 /* FirebaseAuth */; };
 		5CC953D42DC50F4B00474AD0 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC953D32DC50F4B00474AD0 /* AuthenticationManager.swift */; };
@@ -57,6 +61,10 @@
 		5C838D9B2DCE88AE00150C45 /* ScaleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleButtonStyle.swift; sourceTree = "<group>"; };
 		5C838DA02DCE894C00150C45 /* MapError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapError.swift; sourceTree = "<group>"; };
 		5C838DA22DCE895800150C45 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		5CC2F4A62DDA168A003183E3 /* Terrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Terrain.swift; sourceTree = "<group>"; };
+		5CC2F4A82DDA16A0003183E3 /* Surface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Surface.swift; sourceTree = "<group>"; };
+		5CC2F4AA2DDA16AF003183E3 /* ActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityType.swift; sourceTree = "<group>"; };
+		5CC2F4AC2DDA1A6B003183E3 /* SaveRouteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRouteSheet.swift; sourceTree = "<group>"; };
 		5CC953D32DC50F4B00474AD0 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		5CC953DC2DC545D100474AD0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CC953DE2DC5460500474AD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -151,6 +159,9 @@
 		5C47538B2DB55BC600A9CDDB /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				5CC2F4AA2DDA16AF003183E3 /* ActivityType.swift */,
+				5CC2F4A82DDA16A0003183E3 /* Surface.swift */,
+				5CC2F4A62DDA168A003183E3 /* Terrain.swift */,
 				5C0B7CDE2DD10B7D00430836 /* RouteUser.swift */,
 				5CC953EA2DC54FBD00474AD0 /* GoogleSignInModel.swift */,
 				5C6201082DCE29CA009D6FCA /* Route.swift */,
@@ -260,6 +271,7 @@
 		B02AB1E92CD8E2E500F98888 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				5CC2F4AC2DDA1A6B003183E3 /* SaveRouteSheet.swift */,
 				B02AB1F02CD8E46D00F98888 /* MapView.swift */,
 			);
 			path = View;
@@ -422,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CC953D42DC50F4B00474AD0 /* AuthenticationManager.swift in Sources */,
+				5CC2F4A92DDA16A0003183E3 /* Surface.swift in Sources */,
 				B02AB1DD2CD8DCF100F98888 /* RootView.swift in Sources */,
 				5C0B7CE12DD10B8E00430836 /* RoutesModelProtocol.swift in Sources */,
 				B02AB1F12CD8E46D00F98888 /* MapView.swift in Sources */,
@@ -443,7 +456,10 @@
 				5C838DA12DCE894C00150C45 /* MapError.swift in Sources */,
 				5C0B7CDB2DD0DEB800430836 /* RoutesModel.swift in Sources */,
 				B02AB2092CDA3F4900F98888 /* RoutesViewModel.swift in Sources */,
+				5CC2F4A72DDA168A003183E3 /* Terrain.swift in Sources */,
 				B02AB1FF2CDA38D900F98888 /* ProfileViewModel.swift in Sources */,
+				5CC2F4AB2DDA16AF003183E3 /* ActivityType.swift in Sources */,
+				5CC2F4AD2DDA1A6B003183E3 /* SaveRouteSheet.swift in Sources */,
 				B02AB1EF2CD8E38C00F98888 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

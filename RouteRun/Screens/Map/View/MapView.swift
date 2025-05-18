@@ -58,37 +58,13 @@ private extension MapView {
             MapCompass()
             MapScaleView()
         }
-        .alert("Сохранение маршрута", isPresented: $showingSaveAlert) {
-            TextField("Название маршрута*", text: $routeName)
-            TextField("Описание маршрута*", text: $routeDescription)
-            
-            Button("Сохранить") {
-                let trimmedName = routeName.trimmingCharacters(in: .whitespacesAndNewlines)
-                let trimmedDescription = routeDescription.trimmingCharacters(in: .whitespacesAndNewlines)
-                if !trimmedName.isEmpty && !trimmedDescription.isEmpty {
-                    viewModel.saveRoute(name: trimmedName, description: routeDescription)
-                    routeName = ""
-                    routeDescription = ""
-                }
-            }.disabled(
-                routeName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                || routeDescription.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        .sheet(isPresented: $showingSaveAlert) {
+            SaveRouteSheet(
+                viewModel: viewModel,
+                isPresented: $showingSaveAlert,
+                name: $routeName,
+                description: $routeDescription
             )
-            
-            Button("Продолжить", role: .cancel) {
-                viewModel.startRecordingRoute()
-                
-            }
-        } message: {
-            if let route = viewModel.currentRoute {
-                Text("""
-                  Дистанция: \(route.formattedDistance)
-                  Время: \(route.formattedDuration)
-                  Скорость: \(route.formattedAverageSpeed)
-                  Калории: \(viewModel.formattedCalories)
-                  """)
-                
-            }
         }
         .alert("Сбросить запись?", isPresented: $showingResetAlert) {
             Button("Сбросить", role: .destructive) {

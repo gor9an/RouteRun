@@ -29,6 +29,9 @@ final class MapViewModel: NSObject, ObservableObject {
     @Published var routeDescription = ""
     @Published var userWeight: Int = 70
     @Published var caloriesBurned: Double = 0
+    @Published var selectedTerrain: Terrain = .flat
+    @Published var selectedSurface: Surface = .asphalt
+    @Published var selectedActivity: ActivityType = .walking
 
     private let geocoder = CLGeocoder()
     @Published var currentCity: String = "Unknown"
@@ -117,7 +120,10 @@ final class MapViewModel: NSObject, ObservableObject {
                 distance: distance,
                 duration: elapsedTime,
                 userId: userId,
-                city: currentCity
+                city: currentCity,
+                terrain: selectedTerrain,
+                surface: selectedSurface,
+                activityType: selectedActivity
             )
         } else {
             throw MapError.distanceZero

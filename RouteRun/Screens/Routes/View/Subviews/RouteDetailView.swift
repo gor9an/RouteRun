@@ -53,6 +53,11 @@ struct RouteDetailView: View {
             Text(route.name).font(.title2.bold())
             Text(route.description).font(.body).foregroundColor(.secondary)
             HStack {
+                RouteDetailInfo(title: "Рельеф", value: route.terrain.rawValue)
+                RouteDetailInfo(title: "Покрытие", value: route.surface.rawValue)
+                RouteDetailInfo(title: "Активность", value: route.activityType.rawValue)
+            }
+            HStack {
                 Label(route.city, systemImage: "mappin.and.ellipse")
                 Spacer()
 
@@ -74,5 +79,13 @@ struct RouteDetailView: View {
             .font(.caption)
         }
         .padding(.horizontal)
+    }
+
+    private func RouteDetailInfo(title: String, value: String) -> some View {
+        Text("\(title): \(value)")
+            .font(.caption)
+            .padding(4)
+            .background(Color.gray.opacity(0.2))
+            .cornerRadius(4)
     }
 }
