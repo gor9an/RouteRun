@@ -6,12 +6,18 @@ final class AuthenticationManager {
     static let shared = AuthenticationManager()
     private init() { }
     
-    func getAuthenticatedUser() throws -> AuthDataModel {
+    func getAuthenticatedUser() throws -> RouteUser {
         guard let user = Auth.auth().currentUser else {
             throw URLError(.badServerResponse)
         }
         
-        return AuthDataModel(user: user)
+        return RouteUser(
+            id: user.uid,
+            email: user.email ?? "",
+            name: user.displayName ?? user.email ?? "User",
+            photoURL: user.photoURL,
+            likedRoutes: []
+        )
     }
     
     func signOut() throws {
@@ -22,16 +28,23 @@ final class AuthenticationManager {
 // MARK: - With Email
 extension AuthenticationManager {
     @discardableResult
-    func createUser(email: String, password: String) async throws -> AuthDataModel {
+    func createUser(email: String, password: String) async throws -> RouteUser {
         
         let authData = try await Auth.auth().createUser(withEmail: email, password: password)
         try await authData.user.sendEmailVerification()
+        let user = authData.user
         
-        return AuthDataModel(user: authData.user)
+        return RouteUser(
+            id: user.uid,
+            email: user.email ?? "",
+            name: user.displayName ?? user.email ?? "User",
+            photoURL: user.photoURL,
+            likedRoutes: []
+        )
     }
     
     @discardableResult
-    func signIn(email: String, password: String) async throws -> AuthDataModel {
+    func signIn(email: String, password: String) async throws -> RouteUser {
         let authData = try await Auth.auth().signIn(withEmail: email, password: password)
         
         do {
@@ -40,7 +53,15 @@ extension AuthenticationManager {
             try signOut()
         }
         
-        return AuthDataModel(user: authData.user)
+        let user = authData.user
+        
+        return RouteUser(
+            id: user.uid,
+            email: user.email ?? "",
+            name: user.displayName ?? user.email ?? "User",
+            photoURL: user.photoURL,
+            likedRoutes: []
+        )
     }
     
     func resetPassword(with email: String) async throws {
@@ -63,13 +84,20 @@ extension AuthenticationManager {
 extension AuthenticationManager {
     
     @discardableResult
-    func signInWithGoogle(with tokens: GoogleSignInModel) async throws -> AuthDataModel {
+    func signInWithGoogle(with tokens: GoogleSignInModel) async throws -> RouteUser {
         let credential = GoogleAuthProvider.credential(withIDToken: tokens.idToken, accessToken: tokens.accessToken)
         return try await signIn(with: credential)
     }
     
-    func signIn(with credential: AuthCredential) async throws -> AuthDataModel {
+    func signIn(with credential: AuthCredential) async throws -> RouteUser {
         let authData = try await Auth.auth().signIn(with: credential)
-        return AuthDataModel(user: authData.user)
+        let user = authData.user
+        return RouteUser(
+            id: user.uid,
+            email: user.email ?? "",
+            name: user.displayName ?? user.email ?? "User",
+            photoURL: user.photoURL,
+            likedRoutes: []
+        )
     }
 }

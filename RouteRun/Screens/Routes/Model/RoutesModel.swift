@@ -34,7 +34,13 @@ final class RoutesModel: RoutesModelProtocol {
         guard let user = Auth.auth().currentUser, user.uid == userId else {
             throw NSError(domain: "AppError", code: -1, userInfo: nil)
         }
-        let newUser = RouteUser(id: userId, email: user.email ?? "", photoURL: user.photoURL, likedRoutes: [])
+        let newUser = RouteUser(
+            id: userId,
+            email: user.email ?? "",
+            name: user.displayName ?? user.email ?? "User",
+            photoURL: user.photoURL,
+            likedRoutes: []
+        )
         try reference.setData(from: newUser)
         return newUser
     }

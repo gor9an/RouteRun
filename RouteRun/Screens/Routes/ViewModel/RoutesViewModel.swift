@@ -23,7 +23,7 @@ final class RoutesViewModel: ObservableObject {
             let user = try authManager.getAuthenticatedUser()
             async let all = model.fetchRoutes()
             async let rec = model.fetchRecommendedRoutes()
-            async let cu  = model.fetchCurrentUser(userId: user.uid)
+            async let cu  = model.fetchCurrentUser(userId: user.id)
             let (a, r, u) = try await (all, rec, cu)
             routes = a
             recommendedRoutes = r
@@ -35,13 +35,13 @@ final class RoutesViewModel: ObservableObject {
     }
     
     func isLiked(_ route: Route) -> Bool {
-        guard let uid = try? authManager.getAuthenticatedUser().uid else { return false }
+        guard let uid = try? authManager.getAuthenticatedUser().id else { return false }
         return route.likers.contains(uid)
     }
     
     @MainActor
     func toggleLike(route: Route) async {
-        guard let uid = try? authManager.getAuthenticatedUser().uid else { return }
+        guard let uid = try? authManager.getAuthenticatedUser().id else { return }
         do {
             if route.likers.contains(uid) {
                 try await model.unlikeRoute(routeId: route.id, userId: uid)
