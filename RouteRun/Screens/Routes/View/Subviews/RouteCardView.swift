@@ -35,14 +35,14 @@ struct RouteCardView: View {
             }
             Text(route.description).font(.subheadline).foregroundColor(.secondary).lineLimit(2)
             
-            if let user = viewModel.currentUser, user.id == route.userId {
-                CurrentUserInfo(user: user)
+            if let user = viewModel.currentUser, user.id != route.userId {
+                UserInfo(user: user)
             }
         }
         .padding(.bottom, 8)
     }
     
-    private func CurrentUserInfo(user: RouteUser) -> some View {
+    private func UserInfo(user: RouteUser) -> some View {
         HStack(spacing: 8) {
             if let url = user.photoURL {
                 AsyncImage(url: url) { image in
@@ -53,7 +53,7 @@ struct RouteCardView: View {
                 .frame(width: 24, height: 24)
                 .clipShape(Circle())
             }
-            Text(user.email)
+            Text("Ваш маршрут")
                 .font(.caption)
                 .foregroundColor(.secondary)
                 .bold()

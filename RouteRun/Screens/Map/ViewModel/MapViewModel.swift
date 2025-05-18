@@ -10,7 +10,7 @@ final class MapViewModel: NSObject, ObservableObject {
         _locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         _locationManager.activityType = .fitness
         _locationManager.distanceFilter = 5.0
-        _locationManager.allowsBackgroundLocationUpdates = true // allow in background
+        _locationManager.allowsBackgroundLocationUpdates = true
         _locationManager.pausesLocationUpdatesAutomatically = false
 
 
@@ -62,7 +62,6 @@ final class MapViewModel: NSObject, ObservableObject {
     func startRecordingRoute() {
         guard !isRecording else { return }
 
-        // Если это продолжение записи
         if elapsedTime > 0 {
             isRecording = true
             startDate = Date().addingTimeInterval(-elapsedTime)
@@ -74,7 +73,6 @@ final class MapViewModel: NSObject, ObservableObject {
             return
         }
 
-        // Новая запись
         resetRecording()
         isRecording = true
         startDate = Date()
@@ -101,7 +99,7 @@ final class MapViewModel: NSObject, ObservableObject {
         var userId = ""
 
         do {
-            userId = try AuthenticationManager.shared.getAuthenticatedUser().uid
+            userId = try AuthenticationManager.shared.getAuthenticatedUser().id
         } catch {
             print("No user logged in")
             throw MapError.unAuthorized
@@ -173,7 +171,7 @@ final class MapViewModel: NSObject, ObservableObject {
 
     private func loadUserWeight() {
         Task {
-            guard let uid = try? AuthenticationManager.shared.getAuthenticatedUser().uid else { return }
+            guard let uid = try? AuthenticationManager.shared.getAuthenticatedUser().id else { return }
             let document = try await db.collection("users").document(uid).getDocument()
             let user = try? document.data(as: RouteUser.self)
             self.updateWeight(user?.weight)
@@ -196,9 +194,9 @@ final class MapViewModel: NSObject, ObservableObject {
 
         let met: Double
         switch speedKmh {
-        case ..<6:   met = 3.5   // медленная ходьба
-        case ..<9:   met = 7.0   // быстрая ходьба / лёгкий бег
-        default:     met = 11.5  // интенсивный бег
+        case ..<6:   met = 3.5
+        case ..<9:   met = 7.0
+        default:     met = 11.5
         }
 
         caloriesBurned = met * Double(userWeight) * hours
@@ -228,7 +226,6 @@ extension MapViewModel: CLLocationManagerDelegate {
         let coordinate = newLocation.coordinate
         routePoints.append(coordinate)
 
-        // Рассчитываем расстояние
         if let lastLocation = lastLocation {
             distance += newLocation.distance(from: lastLocation)
             computeCalories()

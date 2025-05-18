@@ -23,7 +23,7 @@ final class ProfileViewModel: ObservableObject {
         do {
             guard let authUser = try? AuthenticationManager.shared.getAuthenticatedUser() else { return }
             
-            let userDoc = try await db.collection("users").document(authUser.uid).getDocument()
+            let userDoc = try await db.collection("users").document(authUser.id).getDocument()
             let user = try userDoc.data(as: RouteUser.self)
             self.user = user
             
@@ -44,7 +44,7 @@ final class ProfileViewModel: ObservableObject {
     }
     
     func updateWeight() {
-        guard let _ = try? AuthenticationManager.shared.getAuthenticatedUser().uid, let newWeight else { return }
+        guard let _ = try? AuthenticationManager.shared.getAuthenticatedUser().id, let newWeight else { return }
         do {
             try user?.updateWeight(newWeight: newWeight)
             user?.weight = newWeight
@@ -55,7 +55,7 @@ final class ProfileViewModel: ObservableObject {
     
     func getDisplayName() -> String {
         let user = try? AuthenticationManager.shared.getAuthenticatedUser()
-        return user?.displayName ?? user?.email ?? "User"
+        return user?.name ?? user?.email ?? "User"
     }
     
     func logout() throws {

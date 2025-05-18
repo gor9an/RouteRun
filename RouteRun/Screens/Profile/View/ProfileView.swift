@@ -1,5 +1,4 @@
 import SwiftUI
-import Kingfisher
 
 struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
@@ -55,10 +54,13 @@ struct ProfileView: View {
         VStack {
             HStack(spacing: 16) {
                 if let imageURL = viewModel.user?.photoURL {
-                    KFImage(imageURL)
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .clipShape(.circle)
+                    AsyncImage(url: imageURL){ image in
+                        image.resizable().scaledToFill()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 100, height: 100)
+                    .clipShape(Circle())
                 } else {
                     PlaceholderImage()
                 }
