@@ -29,11 +29,11 @@ final class AuthenticationManager {
 extension AuthenticationManager {
     @discardableResult
     func createUser(email: String, password: String) async throws -> RouteUser {
-
+        
         let authData = try await Auth.auth().createUser(withEmail: email, password: password)
         try await authData.user.sendEmailVerification()
         let user = authData.user
-
+        
         return RouteUser(
             id: user.uid,
             email: user.email ?? "",
@@ -52,9 +52,9 @@ extension AuthenticationManager {
         } catch {
             try signOut()
         }
-
+        
         let user = authData.user
-
+        
         return RouteUser(
             id: user.uid,
             email: user.email ?? "",

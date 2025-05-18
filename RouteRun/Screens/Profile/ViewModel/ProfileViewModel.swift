@@ -11,7 +11,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: Error?
     @Published var newWeight: Int?
-
+    
     private let db = Firestore.firestore()
     
     init() {

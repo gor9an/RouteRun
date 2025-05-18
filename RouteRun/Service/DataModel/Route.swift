@@ -17,11 +17,11 @@ struct Route: Identifiable, Codable {
     var likers: [String]
     var likesCount: Int { likers.count }
     var searchKeywords: [String]
-
+    
     enum CodingKeys: String, CodingKey {
         case id, name, description, date, coordinates, distance, duration, userId, city, terrain, surface, activityType, likers, searchKeywords
     }
-
+    
     struct CoordinateWrapper: Codable {
         let lat: Double
         let lng: Double
@@ -33,7 +33,7 @@ struct Route: Identifiable, Codable {
             CLLocationCoordinate2D(latitude: lat, longitude: lng)
         }
     }
-
+    
     init(
         id: String = UUID().uuidString,
         name: String,
@@ -81,18 +81,18 @@ struct Route: Identifiable, Codable {
             !$0.isEmpty
         }
     }
-
+    
     var averageSpeed: Double {
         guard duration > 0 else { return 0 }
         return distance / duration * 3.6
     }
-
+    
     var formattedDistance: String {
         distance >= 1000
         ? String(format: "%.2f км", distance / 1000)
         : String(format: "%.0f м", distance)
     }
-
+    
     var formattedDuration: String {
         let f = DateComponentsFormatter()
         f.allowedUnits = [.hour, .minute, .second]
@@ -100,11 +100,11 @@ struct Route: Identifiable, Codable {
         f.unitsStyle = .abbreviated
         return f.string(from: duration) ?? "0:00"
     }
-
+    
     var formattedAverageSpeed: String {
         String(format: "%.1f км/ч", averageSpeed)
     }
-
+    
     init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         id = try c.decode(String.self, forKey: .id)
@@ -123,7 +123,7 @@ struct Route: Identifiable, Codable {
         likers = try c.decodeIfPresent([String].self, forKey: .likers) ?? []
         searchKeywords = try c.decodeIfPresent([String].self, forKey: .searchKeywords) ?? []
     }
-
+    
     func encode(to encoder: Encoder) throws {
         var c = encoder.container(keyedBy: CodingKeys.self)
         try c.encode(id, forKey: .id)

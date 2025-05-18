@@ -4,7 +4,7 @@ enum AuthError: Error {
     case emailNotVerified
     case emptyData
     case emptyEmail
-
+    
 }
 
 extension AuthError: LocalizedError {

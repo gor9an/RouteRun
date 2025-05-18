@@ -94,7 +94,7 @@ struct ProfileView: View {
                 Text("\(Int(viewModel.newWeight ?? viewModel.user?.weight ?? 70))")
             }
             .frame(width: 150)
-
+            
             Button(
                 action: {
                     viewModel.updateWeight()

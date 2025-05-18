@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RootView: View {
     @State private var showSignInView: Bool = true
-    
+
     var body: some View {
         ZStack {
             if showSignInView {
@@ -31,8 +31,4 @@ struct RootView: View {
             showSignInView = user == nil
         }
     }
-}
-
-#Preview {
-    RootView()
 }

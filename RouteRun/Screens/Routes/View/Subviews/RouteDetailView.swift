@@ -35,7 +35,7 @@ struct RouteDetailView: View {
         Button {
             guard let start = route?.coordinates.first,
                   let end = route?.coordinates.last else { return }
-
+            
             let coordinates = [start, end].map { MKMapItem(placemark: MKPlacemark(coordinate: $0)) }
             
             MKMapItem.openMaps(with: coordinates, launchOptions: [
@@ -60,13 +60,13 @@ struct RouteDetailView: View {
             HStack {
                 Label(route.city, systemImage: "mappin.and.ellipse")
                 Spacer()
-
+                
                 Label(route.formattedDistance, systemImage: "map")
                 Spacer()
-
+                
                 Label(route.formattedDuration, systemImage: "clock")
                 Spacer()
-
+                
                 Button {
                     Task { await viewModel.toggleLike(route: route) }
                 } label: {
@@ -80,7 +80,7 @@ struct RouteDetailView: View {
         }
         .padding(.horizontal)
     }
-
+    
     private func RouteDetailInfo(title: String, value: String) -> some View {
         Text("\(title): \(value)")
             .font(.caption)
