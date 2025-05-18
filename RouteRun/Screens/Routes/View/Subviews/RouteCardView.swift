@@ -35,7 +35,7 @@ struct RouteCardView: View {
             }
             Text(route.description).font(.subheadline).foregroundColor(.secondary).lineLimit(2)
             
-            if let user = viewModel.currentUser, user.id != route.userId {
+            if let user = viewModel.currentUser, user.id == route.userId {
                 UserInfo(user: user)
             }
         }

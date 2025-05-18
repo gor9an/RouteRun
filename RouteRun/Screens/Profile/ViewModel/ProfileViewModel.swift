@@ -8,6 +8,7 @@ import CoreLocation
 final class ProfileViewModel: ObservableObject {
     @Published var user: RouteUser?
     @Published var likedRoutes: [Route] = []
+    @Published var myRoutes: [Route] = []
     @Published var isLoading = false
     @Published var error: Error?
     @Published var newWeight: Int?
@@ -20,29 +21,46 @@ final class ProfileViewModel: ObservableObject {
     
     func loadUserAndRoutes() async {
         isLoading = true
+        defer { isLoading = false }
+
         do {
-            guard let authUser = try? AuthenticationManager.shared.getAuthenticatedUser() else { return }
-            
-            let userDoc = try await db.collection("users").document(authUser.id).getDocument()
-            let user = try userDoc.data(as: RouteUser.self)
-            self.user = user
-            
-            var routes: [Route] = []
-            for routeId in user.likedRoutes {
-                let doc = try await db.collection("routes").document(routeId).getDocument()
-                if let route = try? doc.data(as: Route.self) {
-                    routes.append(route)
-                }
+            let authenticatedUser = try AuthenticationManager.shared.getAuthenticatedUser()
+            let userSnapshot = try await db
+                .collection("users")
+                .document(authenticatedUser.id)
+                .getDocument()
+            let routeUser = try userSnapshot.data(as: RouteUser.self)
+            self.user = routeUser
+
+            self.likedRoutes = try await fetchRoutes(withIdentifiers: routeUser.likedRoutes)
+
+            let myRoutesQuery = try await db
+                .collection("routes")
+                .whereField("userId", isEqualTo: authenticatedUser.id)
+                .getDocuments()
+            self.myRoutes = myRoutesQuery.documents.compactMap {
+                try? $0.data(as: Route.self)
             }
-            
-            self.likedRoutes = routes
-            
+
         } catch {
             self.error = error
         }
-        isLoading = false
     }
-    
+
+    private func fetchRoutes(withIdentifiers identifiers: [String]) async throws -> [Route] {
+        var routes: [Route] = []
+        for id in identifiers {
+            let snapshot = try await db
+                .collection("routes")
+                .document(id)
+                .getDocument()
+            if let route = try? snapshot.data(as: Route.self) {
+                routes.append(route)
+            }
+        }
+        return routes
+    }
+
     func updateWeight() {
         guard let _ = try? AuthenticationManager.shared.getAuthenticatedUser().id, let newWeight else { return }
         do {

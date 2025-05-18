@@ -12,15 +12,15 @@ final class MapViewModel: NSObject, ObservableObject {
         _locationManager.distanceFilter = 5.0
         _locationManager.allowsBackgroundLocationUpdates = true
         _locationManager.pausesLocationUpdatesAutomatically = false
-        
-        
+
+
         return _locationManager
     }()
     private var routePoints: [CLLocationCoordinate2D] = []
     private var startDate: Date?
     private var lastLocation: CLLocation?
     private var timer: Timer?
-    
+
     @Published var currentRoute: Route?
     @Published var isRecording = false
     @Published var elapsedTime: TimeInterval = 0
@@ -32,21 +32,21 @@ final class MapViewModel: NSObject, ObservableObject {
     @Published var selectedTerrain: Terrain = .flat
     @Published var selectedSurface: Surface = .asphalt
     @Published var selectedActivity: ActivityType = .walking
-    
+
     private let geocoder = CLGeocoder()
     @Published var currentCity: String = "Unknown"
-    
+
     private let db = Firestore.firestore()
-    
+
     override init() {
         super.init()
         loadUserWeight()
     }
-    
+
     func checkLocationIsEnable() {
         self.checkLocationAuthorization()
     }
-    
+
     private func checkLocationAuthorization() {
         switch locationManager.authorizationStatus {
         case .notDetermined:
@@ -61,57 +61,57 @@ final class MapViewModel: NSObject, ObservableObject {
             break
         }
     }
-    
+
     func startRecordingRoute() {
         guard !isRecording else { return }
-        
+
         if elapsedTime > 0 {
             isRecording = true
             startDate = Date().addingTimeInterval(-elapsedTime)
             locationManager.startUpdatingLocation()
-            
+
             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
                 self?.elapsedTime += 1
             }
             return
         }
-        
+
         resetRecording()
         isRecording = true
         startDate = Date()
         lastLocation = nil
         locationManager.startUpdatingLocation()
-        
+
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             self?.elapsedTime += 1
         }
     }
-    
+
     func pauseRecording() {
         isRecording = false
         locationManager.stopUpdatingLocation()
         timer?.invalidate()
         timer = nil
     }
-    
+
     func stopRecordingRoute() throws {
         guard isRecording else { return }
-        
+
         pauseRecording()
-        
+
         var userId = ""
-        
+
         do {
             userId = try AuthenticationManager.shared.getAuthenticatedUser().id
         } catch {
             print("No user logged in")
             throw MapError.unAuthorized
         }
-        
+
         if let startDate = startDate, let firstLocation = routePoints.first, distance != 0 {
             let location = CLLocation(latitude: firstLocation.latitude, longitude: firstLocation.longitude)
             determineCity(for: location)
-            
+
             currentRoute = Route(
                 name: "",
                 description: routeDescription,
@@ -129,13 +129,13 @@ final class MapViewModel: NSObject, ObservableObject {
             throw MapError.distanceZero
         }
     }
-    
+
     func saveRoute(name: String, description: String) {
         guard var route = currentRoute else { return }
         route.name = name
         route.description = description
         route.city = currentCity
-        
+
         do {
             try db.collection("routes").document(route.id).setData(from: route)
             resetRecording()
@@ -143,7 +143,7 @@ final class MapViewModel: NSObject, ObservableObject {
             print("Error saving route: \(error.localizedDescription)")
         }
     }
-    
+
     func resetRecording() {
         isRecording = false
         routePoints.removeAll()
@@ -157,16 +157,16 @@ final class MapViewModel: NSObject, ObservableObject {
         timer?.invalidate()
         timer = nil
     }
-    
+
     private func determineCity(for location: CLLocation) {
         geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
             guard let self = self else { return }
-            
+
             if let error = error {
                 print("Geocoding error: \(error.localizedDescription)")
                 return
             }
-            
+
             if let city = placemarks?.first?.locality {
                 DispatchQueue.main.async {
                     self.currentCity = city
@@ -174,7 +174,7 @@ final class MapViewModel: NSObject, ObservableObject {
             }
         }
     }
-    
+
     private func loadUserWeight() {
         Task {
             guard let uid = try? AuthenticationManager.shared.getAuthenticatedUser().id else { return }
@@ -183,13 +183,13 @@ final class MapViewModel: NSObject, ObservableObject {
             self.updateWeight(user?.weight)
         }
     }
-    
+
     private func updateWeight(_ newWeight: Int?) {
         DispatchQueue.main.async {
             self.userWeight = newWeight ?? 70
         }
     }
-    
+
     private func computeCalories() {
         guard elapsedTime > 0 else {
             caloriesBurned = 0
@@ -197,23 +197,23 @@ final class MapViewModel: NSObject, ObservableObject {
         }
         let hours = elapsedTime / 3600
         let speedKmh = distance / elapsedTime * 3.6
-        
+
         let met: Double
         switch speedKmh {
         case ..<6:   met = 3.5
         case ..<9:   met = 7.0
         default:     met = 11.5
         }
-        
+
         caloriesBurned = met * Double(userWeight) * hours
     }
-    
+
     private func updateRouteLine() {
         guard !routePoints.isEmpty else {
             routeLine = nil
             return
         }
-        
+
         let coordinates = routePoints
         routeLine = MKPolyline(coordinates: coordinates, count: coordinates.count)
     }
@@ -222,25 +222,25 @@ final class MapViewModel: NSObject, ObservableObject {
 extension MapViewModel: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let newLocation = locations.last, isRecording else { return }
-        
+
         guard newLocation.horizontalAccuracy <= 50 else { return }
-        
+
         if routePoints.isEmpty {
             determineCity(for: newLocation)
         }
-        
+
         let coordinate = newLocation.coordinate
         routePoints.append(coordinate)
-        
+
         if let lastLocation = lastLocation {
             distance += newLocation.distance(from: lastLocation)
             computeCalories()
         }
         lastLocation = newLocation
-        
+
         updateRouteLine()
     }
-    
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         checkLocationAuthorization()
     }
@@ -254,15 +254,15 @@ extension MapViewModel {
         formatter.zeroFormattingBehavior = .pad
         return formatter.string(from: elapsedTime) ?? "00:00:00"
     }
-    
+
     var formattedSpeed: String {
         guard distance != 0 && elapsedTime != 0 else {
             return "0.00 км/ч"
         }
-        
+
         return String(format: "%.2f км/ч", distance / elapsedTime * 3.6)
     }
-    
+
     var formattedDistance: String {
         if distance >= 1000 {
             return String(format: "%.2f км", distance / 1000)
@@ -270,7 +270,7 @@ extension MapViewModel {
             return String(format: "%.0f м", distance)
         }
     }
-    
+
     var formattedCalories: String {
         return String(format: "%.1f ккал", caloriesBurned)
     }

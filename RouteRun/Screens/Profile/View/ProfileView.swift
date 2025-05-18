@@ -4,14 +4,30 @@ struct ProfileView: View {
     @StateObject var viewModel = ProfileViewModel()
     @Binding var showSignInView: Bool
     @State var showAlert = false
+    @State private var selectedTab: Tab = .liked
     var routesViewModel = RoutesViewModel()
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    
+
+    enum Tab: String, CaseIterable, Identifiable {
+        case liked = "Понравившиеся"
+        case mine = "Ваши маршруты"
+        var id: String { rawValue }
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 Header
+
+                Picker("", selection: $selectedTab) {
+                    ForEach(Tab.allCases) { TabView in
+                        Text(TabView.rawValue).tag(TabView)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+
                 Divider().padding(.horizontal)
                 
                 WeightChanger()
@@ -27,7 +43,7 @@ struct ProfileView: View {
                             .padding(.horizontal)
                         
                         LazyVGrid(columns: columns, spacing: 16) {
-                            ForEach(viewModel.likedRoutes) { route in
+                            ForEach(selectedTab == .liked ? viewModel.likedRoutes : viewModel.myRoutes) { route in
                                 NavigationLink(destination: RouteDetailView(routeId: route.id, viewModel: routesViewModel)) {
                                     RouteCard(route: route)
                                 }
@@ -36,16 +52,22 @@ struct ProfileView: View {
                         .padding()
                     }
                 } else {
-                    Text("У вас пока нет понравившихся маршрутов")
-                        .foregroundColor(.gray)
-                        .padding()
+                    if (selectedTab == .liked ? viewModel.likedRoutes : viewModel.myRoutes).isEmpty {
+                        Text(
+                            selectedTab == .liked
+                            ? "У вас нет понравившихся маршрутов"
+                            : "Вы ещё не записали ни одного маршрута"
+                        )
+                            .foregroundColor(.gray)
+                            .padding()
+                    }
                 }
                 
                 Spacer()
             }
             .onAppear {
                 Task { await viewModel.loadUserAndRoutes() }
-                routesViewModel.routes = viewModel.likedRoutes
+                routesViewModel.routes = viewModel.likedRoutes + viewModel.myRoutes
             }
         }
     }
