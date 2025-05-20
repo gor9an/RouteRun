@@ -60,11 +60,17 @@ final class RoutesModel: RoutesModelProtocol {
     
     func unlikeRoute(routeId: String, userId: String) async throws {
         let reference = db.collection("routes").document(routeId)
-        let userReference = db.collection("users").document(userId)
-        
+
         try await reference.updateData([
             "likers": FieldValue.arrayRemove([userId])
         ])
+
+        try await deleteFromLiked(routeId: routeId, userId: userId)
+    }
+
+    func deleteFromLiked(routeId: String, userId: String) async throws {
+        let userReference = db.collection("users").document(userId)
+
         try await userReference.updateData([
             "likedRoutes": FieldValue.arrayRemove([routeId])
         ])

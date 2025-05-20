@@ -4,7 +4,9 @@ import MapKit
 struct RouteDetailView: View {
     let routeId: String
     @ObservedObject var viewModel: RoutesViewModel
-    
+    @State var showAlert: Bool = false
+    @Environment(\.dismiss) private var dismiss
+
     private var route: Route? {
         (viewModel.recommendedRoutes + viewModel.routes + viewModel.searchResults)
             .first { $0.id == routeId }
@@ -18,8 +20,14 @@ struct RouteDetailView: View {
                         .frame(height: 250)
                         .cornerRadius(12)
                         .allowsHitTesting(false)
-                    
-                    OpenInMapsButton()
+
+                    VStack(spacing: 8) {
+                        OpenInMapsButton()
+                        if let user = viewModel.currentUser, user.id == route.userId {
+                            DeleteRouteButton()
+                        }
+                    }
+
                     RouteInfo(route: route)
                 }
                 .padding()
@@ -43,9 +51,14 @@ struct RouteDetailView: View {
             ])
         } label: {
             Label("Открыть маршрут в картах", systemImage: "play.fill")
+                .padding()
+                .font(.headline)
+                .foregroundStyle(.white)
+                .frame(height: 40)
                 .frame(maxWidth: .infinity)
+                .background(Color(.blue).opacity(0.8))
+                .cornerRadius(10)
         }
-        .buttonStyle(.borderedProminent)
     }
     
     private func RouteInfo(route: Route) -> some View {
@@ -88,4 +101,64 @@ struct RouteDetailView: View {
             .background(Color.gray.opacity(0.2))
             .cornerRadius(4)
     }
+
+    private func DeleteRouteButton() -> some View {
+        Button(
+            action: {
+                Task {
+                    do {
+                        showAlert = true
+                    } catch {
+                        showAlert = true
+                    }
+                }
+            },
+            label: {
+                Text("Удалить маршрут")
+                    .padding()
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                    .frame(height: 40)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(.red).opacity(0.8))
+                    .cornerRadius(10)
+            }
+        ).alert(
+            isPresented: $showAlert
+        ) {
+            DeleteAlert()
+        }
+    }
+
+    private func DeleteAlert() -> Alert {
+        Alert(
+            title: Text(
+                "Удаление"
+            ),
+            message: Text(
+                "Вы точно хотите удалить маршрут?"
+            ),
+            primaryButton: .default(
+                Text(
+                    "Удалить"
+                ),
+                action: {
+                    do {
+                        try viewModel.deleteRoute(for: routeId)
+                        dismiss()
+                    } catch {}
+                    showAlert = false
+                }
+            ),
+            secondaryButton: .cancel(
+                Text(
+                    "Нет"
+                ),
+                action: {
+                    showAlert = false
+                }
+            )
+        )
+    }
+
 }

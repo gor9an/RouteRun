@@ -1,5 +1,6 @@
 import Foundation
 import MapKit
+import FirebaseFirestore
 
 final class RoutesViewModel: ObservableObject {
     @Published var routes: [Route] = []
@@ -10,7 +11,8 @@ final class RoutesViewModel: ObservableObject {
     @Published var error: Error?
     private let model: RoutesModelProtocol
     private let authManager: AuthenticationManager
-    
+    private let db = Firestore.firestore()
+
     init(model: RoutesModelProtocol = RoutesModel(), authManager: AuthenticationManager = .shared) {
         self.model = model
         self.authManager = authManager
@@ -104,5 +106,13 @@ final class RoutesViewModel: ObservableObject {
     
     func getRouteLine(for route: Route) -> MKPolyline {
         MKPolyline(coordinates: route.coordinates, count: route.coordinates.count)
+    }
+
+    func deleteRoute(for routeId: String) throws {
+        guard let userId = currentUser?.id else { return }
+        Task {
+            try await db.collection("routes").document(routeId).delete()
+            try await model.deleteFromLiked(routeId: routeId, userId: userId)
+        }
     }
 }
