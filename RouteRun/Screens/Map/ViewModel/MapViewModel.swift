@@ -149,6 +149,7 @@ final class MapViewModel: NSObject, ObservableObject {
         routePoints.removeAll()
         distance = 0
         elapsedTime = 0
+        caloriesBurned = 0
         startDate = nil
         lastLocation = nil
         routeLine = nil

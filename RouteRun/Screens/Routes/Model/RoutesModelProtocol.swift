@@ -7,4 +7,5 @@ protocol RoutesModelProtocol {
     func fetchCurrentUser(userId: String) async throws -> RouteUser
     func likeRoute(routeId: String, userId: String) async throws
     func unlikeRoute(routeId: String, userId: String) async throws
+    func deleteFromLiked(routeId: String, userId: String) async throws
 }
